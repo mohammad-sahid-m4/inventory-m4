@@ -1,0 +1,40 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<span th:substituteby="commons :: common-css"></span>
+	</head>
+	
+	<body>
+	<!-- Navbar -->
+	  <div id="headerbaredit" class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <span class="brand">
+                <a th:href="@{/}"><span id="bookingno">IMS</span> <span id="bookingstatus">(Inventory Management System)</span></a>
+            </span>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="">
+                        <a class="editmode" th:href="@{/}" >Home</a>
+                    </li>
+                    <li class="">
+                        <a class="editmode" th:href="@{/product}">Product</a>
+                    </li>
+                    <li class="">
+                        <a  class="editmode" th:href="@{/order}">Order</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+				
+				
+				
+	
+			<span th:substituteby="commons :: common-html"></span>
+		<span th:substituteby="commons :: common-js"></span>
+	</body>
+</html>
