@@ -1,137 +1,3 @@
-<!-- 
-<!DOCTYPE html >
-<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" />
-		<span th:substituteby="commons :: common-css"></span>
-	</head>
-	
-	<body th:with="isNew=${#strings.isEmpty(product.id)}">
-			<div id="headerbar" class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-					</button>
-					<span class="brand" th:text="#{person.brand}"></span>
-
-					<div class="nav-collapse collapse">
-						<ul class="nav pull-right" th:if="${isNew}">
-							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.create}">Create</a></li>
-						</ul>
-						<ul class="nav pull-right" th:unless="${isNew}">
-							<li><a class="editmode" id="addbutton" th:href="@{'/product'}" th:text="#{action.add}">Add</a></li>
-							<li><a class="editmode" id="updatebutton" th:text="#{action.update}">Update</a></li>
-							<li class="nodisplay"><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.save}">Save</a></li>
-							<li class="nodisplay"><a class="viewmode updatebutton" id="headercancelbutton" th:text="#{action.cancel}">Cancel</a></li>
-						</ul>
-									<ul class="nav pull-right">
-                    <li class="">
-                        <a class="editmode" th:href="@{/}" >Home</a>
-                    </li>
-                    <li class="">
-                        <a class="editmode" th:href="@{/product}">Product</a>
-                    </li>
-                    <li class="">
-                        <a  class="editmode" th:href="@{/order}">Order</a>
-                    </li>
-                </ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="container" class="container">
-			<header id="overview" class="subhead">
-				<div class="subnav subnav-fixed" id="subnavscroll">
-					<ul class="nav nav-pills">
-					</ul>
-				</div>
-			</header>
-
-			<form id="mainform" th:object="${product}" class="form-horizontal" method="POST" autocomplete="off" th:action="@{'/product'}">
-				<section>
-					<div class="row anything noheader">
-						<div class="span6 offset3">
-							<fieldset>
-								<div class="control-group">
-									<label for="name" class="control-label" th:text="#{person.name.label}"> Product Name</label>
-									<div class="controls">
-										<input id="namee"  th:field="*{name}" data-required="required" type="text" data-maxlength="50"
-											class="include" placeholder="Product name" /> 
-									</div>
-								</div>
-								
-									<div class="control-group">
-									<label for="name" class="control-label" > Product price</label>
-									<div class="controls">
-										<input id="namee"  th:field="*{product_price}" data-required="required" type="text" data-maxlength="50"
-											class="include" placeholder="Product price" /> 
-									</div>
-								</div>
-								
-									<div class="control-group">
-									<label for="name" class="control-label" > Stock quantity</label>
-									<div class="controls">
-										<input id="namee"  th:field="*{qty}" data-required="required" type="text" data-maxlength="50"
-											class="include" placeholder="Product quantity" /> 
-									</div>
-								</div>
-							 for date formate
-							<div class="control-group">
-								<label for="datepicker" class="control-label" >Date</label>
-								<div class="controls">
-									<div class="input-append">
-										<input id="datepicker"	data-required="required" th:field="*{date}" class="input-datesize include con-datepicker" type="text"
-											name="datepicker"/>
-											<span class="add-on"><i
-											class="icon-calendar"></i></span>
-									</div>
-								</div>
-							</div>
-							<div class="control-group">
-								<div class="controls">
-									<div class="input-append">
-										<button type="button" id="submit" class="btn" >Submit</button>
-									</div>
-								</div>
-							</div>
-							
-							</fieldset>
-						</div>
-					</div>
-				</section>
-			</form>
-		</div>
-
-
-
-      <br>
-      </br>
-		<div class="container">
-		 	<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="TEST PER PAGE PROMPT" data-filterprompt="TEST SEARCH PROMPT"    >
-			    <thead>
-			        <tr>
-			            <th>Product Name</th>
-			            <th>Product Price</th>
-			            <th>Product Quantity</th>
-			            <th data-defaultsort="desc">Date</th>
-			        </tr>
-			    </thead>
-			    <tbody>
-			        <tr id="testdisabledtablerow1">
-			            <td><span id="testdisabledtablerow1noofitem">41</span></td>
-			            <td><span id="testdisabledtablerow1noofpeople">22</span></td>
-			            <td><span id="testdisabledtablerow1co">a</span></td>
-			            <td><span id="testdisabledtablerow1date">01-01-0002</span></td>
-			        </tr>
-			    </tbody>
-			</table>
-		</div>
-		<span th:substituteby="commons :: common-html"></span>
-		<span th:substituteby="commons :: common-js"></span>
-	</body>
-</html> -->
-
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
@@ -140,28 +6,30 @@
 		<span th:substituteby="commons :: common-css"></span>
 	</head>
 	
-	<body th:with="isNew=${#strings.isEmpty(product.id)}">
-	                        <a class="editmode btn btn-red" type="button" th:href="@{/}" >Home</a>
-                        <a class="editmode btn btn-red" type="button" th:href="@{/order}" >Order</a>
-                        <a class="editmode btn btn-red" type="button" th:href="@{/product}" >Product</a>
+	<body th:with="isNew=${#strings.isEmpty(product.id)}">	
 		<div id="headerbar" class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
-			
 				<div class="container">
 
-					<span class="brand" >Ims</span>
-				
+					<span class="brand">IMS</span>
+
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right" th:if="${isNew}">
-							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" ></a></li>
-
+							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.create}">Create</a></li>
+							<li><a class="viewmode ">Product</a></li>
+							<li><a class="viewmode ">Order</a></li>
 						</ul>
 						<ul class="nav pull-right" th:unless="${isNew}">
-							<li><a class="editmode" id="addbutton" th:href="@{'/product'}" th:text="#{action.add}">Add</a></li>
+							<li><a class="editmode" id="addbutton" th:href="@{'/person'}" th:text="#{action.add}">Add</a></li>
 							<li><a class="editmode" id="updatebutton" th:text="#{action.update}">Update</a></li>
 							<li class="nodisplay"><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.save}">Save</a></li>
 							<li class="nodisplay"><a class="viewmode updatebutton" id="headercancelbutton" th:text="#{action.cancel}">Cancel</a></li>
 						</ul>
+						<form id="searchform" class="navbar-search pull-right" method="get" th:action="@{'/product/'}">
+							<input id="datasearchfield" class="typeahead search-query" type="text" placeholder="Search" data-provide="typeahead" th:attr="data-search-url=@{'/search/product/'}" />
+							<input class="typeahead-val" type="hidden" name="code" value="" />
+							<input class="typeahead-desc" type="hidden" value="" />
+						</form>
 					</div>
 				</div>
 			</div>
@@ -169,26 +37,34 @@
               
                 
 
-                    
- 
-		<div id="container" class="container">
-			<header id="overview" class="subhead">
-				<div class="subnav subnav-fixed" id="subnavscroll">
-					<ul class="nav nav-pills">
-					</ul>
-				</div>
-			</header>
-				
+
+		<div id="container" class="container">		
+		
+		                    
+		<header id="overview" class="subhead">
+			<div class="subnav-fixed subnav" id="subnavscroll" style="top: 66px;">
+				<ul class="nav nav-pills">
+					<li class=""><a href="#add-product">Add product</a></li>
+					<li class=""><a href="#product-table">Product table</a></li>
+				</ul>
+			</div>
+		</header>
+
 			<form id="mainform" th:object="${product}" class="form-horizontal" method="POST" autocomplete="off" th:action="@{'/product'}">
-				<section>
+				<section id="add-product">
+				<div class="page-header sectionbartoggle" tabindex="0">
+					<h1>
+						<small><i class="icon-chevron-down"></i><span>Add product</span></small>
+					</h1>
+				</div>
 					<div class="row anything noheader">
-						<div class="span6 offset3">
-							<fieldset>
+						<div class="span6">
+							<fieldset>						
 								<div class="control-group">
 									<label for="name" class="control-label">Product Name</label>
 									<div class="controls">
 										<input id="namee"  th:field="*{name}" data-required="required" type="text" data-maxlength="50"
-											class="include" placeholder="Person name" /> 
+											class="include" placeholder="Person name"/> 
 									</div>
 								</div>
 								<div class="control-group">
@@ -198,67 +74,70 @@
 											class="include" placeholder="Person name" /> 
 									</div>
 								</div>
-								<div class="control-group">
-									<label for="name" class="control-label" >Product Qantity</label>
+							</fieldset>
+						
+						</div>
+						<div class="span6">
+						 <fieldset>
+						  		<div class="control-group">
+									<label for="name" class="control-label" >Product Quantity</label>
 									<div class="controls">
 										<input id="namee"  th:field="*{qty}" data-required="required" type="text" data-maxlength="50"
 											class="include" placeholder="Person name" /> 
 									</div>
 								</div>
-							<!--  for date formate -->
-							<div class="control-group">
-								<label for="datepicker" class="control-label">Date</label>
-								<div class="controls">
-									<div class="input-append">
-										<input id="datepicker"	data-required="required" th:field="*{date}" class="input-datesize include con-datepicker" type="text"
-											name="datepicker"/>
-											<span class="add-on"><i
-											class="icon-calendar"></i></span>
+									<!--  for date format -->
+								<div class="control-group">
+									<label for="datepicker" class="control-label">Date</label>
+									<div class="controls">
+										<div class="input-append">
+											<input id="datepicker"	data-required="required" th:field="*{date}" class="input-datesize include con-datepicker" type="text"
+												name="datepicker"/>
+												<span class="add-on"><i
+												class="icon-calendar"></i></span>
+										</div>
 									</div>
 								</div>
-							</div>
-						
-							<div class="control-group">
-							
-								<div class="controls">
-									<div class="input-append">
-										<a class="editmode btn btn-red viewmode updatebutton addbutton submit" type="button" id="headerconfirmbutton">Submit</a>
-									</div>
-								</div>
-							</div>
-						
 							</fieldset>
 						</div>
 					</div>
 				</section>
 			</form>
-		</div>
 
-  <br>
-  <br>
-  <br>
-	<div class="container">
 
-		 	<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
-			    <thead>
-			        <tr>
-			            <th>Product Name</th>
-			            <th>Product Price</th>
-			            <th>Product Quantity</th>
-			            <th data-defaultsort="desc">Date</th>
-			        </tr>
-			    </thead>  <!--        -->
-			    <tbody>
-			        <tr  th:each="product: ${product_details}" >
-			            <td th:text="${product.name}"></td>
-			            <td th:text="${product.product_price}"></td>
-			            <td th:text="${product.qty}"></td>
-			            <td th:text="${product.date}" ></td>
-			        </tr>
-			    </tbody>
-			</table>
+     <br>
+     <br>
+     <br>
+			<section id="product-table">
+					<div class="page-header sectionbartoggle" tabindex="0">
+						<h1>
+							<small><i class="icon-chevron-down"></i>Product table</small>
+						</h1>
+					</div>
+					<div id="divTaskList" class="row anything noheader" >
+						<div class="span12">
+						  		<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
+								    <thead>
+								        <tr>
+								            <th>Product Name</th>
+								            <th>Product Price</th>
+								            <th>Product Quantity</th>
+								            <th>Date</th>
+								        </tr>
+								    </thead>
+								    <tbody>
+								        <tr  th:each="product: ${product_details}" >
+								            <td th:text="${product.name}"></td>
+								            <td th:text="${product.product_price}"></td>
+								            <td th:text="${product.qty}"></td>
+								            <td th:text="${product.date}" ></td>
+								        </tr>
+								    </tbody>
+								</table>
+						</div>
+					</div>
+			</section>
 		</div>
-	</div>
 
 		<span th:substituteby="commons :: common-html"></span>
 		<span th:substituteby="commons :: common-js"></span>

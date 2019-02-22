@@ -6,12 +6,13 @@ $(function() {
 	setvalidator();
 	metaboot($('body'));
 	addvalidation($('body'));
+	editmode($('body:visible'));
 
-	if ($("ul.nav li").length == 1) { // indicates create screen as we are using only create button at create screen
-		editmode($('body:visible'));
-	} else {
-		viewmode($('body:visible'));
-	}
+//	if ($("ul.nav li").length == 1) { // indicates create screen as we are using only create button at create screen
+//		editmode($('body:visible'));
+//	} else {
+//		viewmode($('body:visible'));
+//	}
 
 	/**
 	 * All our pages should have block-ui div which is coming from commons.html file

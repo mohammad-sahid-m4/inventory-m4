@@ -2,35 +2,142 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
+		<title th:text="#{person.title}">Person</title>
 		<span th:substituteby="commons :: common-css"></span>
 	</head>
 	
-	<body>
-	<!-- Navbar -->
-	  <div id="headerbaredit" class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <span class="brand">
-                <a th:href="@{/}"><span id="bookingno">IMS</span> <span id="bookingstatus">(Inventory Management System)</span></a>
-            </span>
-            <div class="nav-collapse collapse">
-                <ul class="nav pull-right">
-                    <li class="">
-                        <a class="editmode" th:href="@{/}" >Home</a>
-                    </li>
-                    <li class="">
-                        <a class="editmode" th:href="@{/product}">Product</a>
-                    </li>
-                    <li class="">
-                        <a  class="editmode" th:href="@{/order}">Order</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+	<body th:with="isNew=${#strings.isEmpty(order.id)}">
+	                        <a class="editmode btn btn-red" type="button" th:href="@{/}" >Home</a>
+                        <a class="editmode btn btn-red" type="button" th:href="@{/order}" >Order</a>
+                        <a class="editmode btn btn-red" type="button" th:href="@{/product}" >Product</a>
+		<div id="headerbar" class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+			
+				<div class="container">
+
+					<span class="brand" >Ims</span>
+				
+					<div class="nav-collapse collapse">
+						<ul class="nav pull-right" th:if="${isNew}">
+							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" ></a></li>
+
+						</ul>
+						<ul class="nav pull-right" th:unless="${isNew}">
+							<li><a class="editmode" id="addbutton" th:href="@{'/product'}" th:text="#{action.add}">Add</a></li>
+							<li><a class="editmode" id="updatebutton" th:text="#{action.update}">Update</a></li>
+							<li class="nodisplay"><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.save}">Save</a></li>
+							<li class="nodisplay"><a class="viewmode updatebutton" id="headercancelbutton" th:text="#{action.cancel}">Cancel</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+              
+                
+
+                    
+ 
+		<div id="container" class="container">
+			<header id="overview" class="subhead">
+				<div class="subnav subnav-fixed" id="subnavscroll">
+					<ul class="nav nav-pills">
+					</ul>
+				</div>
+			</header>
+				
+			<form id="mainform" th:object="${order}" class="form-horizontal" method="POST" autocomplete="off" th:action="@{'/order'}">
+				<section>
+					<div class="row anything noheader">
+						<div class="span6 offset3">
+							<fieldset>
+							
+								<!-- for radiobox -->
+								<div class="control-group">
+									<label for="groupofradios" class="control-label" th:text="#{person.sex.label}">Order Type</label>
+									<div class="controls">
+										 <input type="radio"
+											id="groupofradiosradio1"  value="sale" th:field="*{orderType}" class="include" />
+											Sale &nbsp;
+										<input type="radio"
+											id="groupofradiosradio2" value="purchase" th:field="*{orderType}" class="include" />
+											Purchase
+										</div>
+								</div>
+								<div class="control-group">
+									<label for="name" class="control-label">Product Name</label>
+									<div class="controls">
+										<input id="namee"  th:field="*{productName}" data-required="required" type="text" data-maxlength="50"
+											class="include" placeholder="Person name" /> 
+									</div>
+								</div>
+															<!-- Highes Degree using Select input -->
+							<div class="control-group">
+							    <label for="name" class="control-label">Product Name</label>
+							    <div class="controls">
+							        <select th:field="*{productName}" class="input-large include" id="selectwithinputs">
+							            <option th:each="item : ${productName}" th:value="${item}" th:text="${item}" />
+							        </select>
+							    </div>
+							</div>
+								
+								<div class="control-group">
+									<label for="name" class="control-label">Product Price</label>
+									<div class="controls">
+										<input id="namee"  th:field="*{productPrice}" data-required="required" type="text" data-maxlength="50"
+											class="include" placeholder="Person name" /> 
+									</div>
+								</div>
+								<div class="control-group">
+									<label for="name" class="control-label" >Product Qantity</label>
+									<div class="controls">
+										<input id="namee"  th:field="*{productQuantity}" data-required="required" type="text" data-maxlength="50"
+											class="include" placeholder="Person name" /> 
+									</div>
+								</div>
 	
-			<span th:substituteby="commons :: common-html"></span>
+							<div class="control-group">
+							
+								<div class="controls">
+									<div class="input-append">
+										<a class="editmode btn btn-red viewmode updatebutton addbutton submit" type="button" id="headerconfirmbutton">Submit</a>
+									</div>
+								</div>
+							</div>
+						
+							</fieldset>
+						</div>
+					</div>
+				</section>
+			</form>
+		</div>
+
+  <br>
+  <br>
+  <br>
+	<div class="container">
+
+		 	<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
+			    <thead>
+			        <tr>
+			            <th>Product Name</th>
+			            <th>Product Price</th>
+			            <th>Product Quantity</th>
+			            <th data-defaultsort="desc">Date</th>
+			        </tr>
+			    </thead>  <!--        -->
+			    <tbody>
+			        <tr  th:each="product: ${product_details}" >
+			            <td th:text="${product.name}"></td>
+			            <td th:text="${product.product_price}"></td>
+			            <td th:text="${product.qty}"></td>
+			            <td th:text="${product.date}" ></td>
+			        </tr>
+			    </tbody>
+			</table>
+		</div>
+	</div>
+
+		<span th:substituteby="commons :: common-html"></span>
 		<span th:substituteby="commons :: common-js"></span>
 	</body>
 </html>

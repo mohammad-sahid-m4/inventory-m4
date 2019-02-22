@@ -1,40 +1,980 @@
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" />
-		<span th:substituteby="commons :: common-css"></span>
-	</head>
-	
-	<body>
-	<!-- Navbar -->
-	  <div id="headerbaredit" class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <span class="brand">
-                <a th:href="@{/}"><span id="bookingno">IMS</span> <span id="bookingstatus">(Inventory Management System)</span></a>
-            </span>
-            <div class="nav-collapse collapse">
-                <ul class="nav pull-right">
-                    <li class="">
-                        <a class="editmode" th:href="@{/}" >Home</a>
-                    </li>
-                    <li class="">
-                        <a class="editmode" th:href="@{/product}">Product</a>
-                    </li>
-                    <li class="">
-                        <a  class="editmode" th:href="@{/order}">Order</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<head>
+<meta charset="utf-8" />
+<span th:substituteby="commons :: common-css"></span>
+</head>
 
-				
-				
-				
-	
-			<span th:substituteby="commons :: common-html"></span>
-		<span th:substituteby="commons :: common-js"></span>
-	</body>
+<body style="padding-top: 102px;">
+	<div id="headerbar" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<span class="brand">User</span>
+				<div class="nav-collapse collapse">
+					<p class="navbar-text span3"></p>
+					<ul class="nav pull-right">
+						<li style="display: none;"><a class="editmode"
+							href="/netcourier-data/system/user/new">Add</a></li>
+						<li style="display: none;"><a class="editmode"
+							id="updatebutton">Update</a></li>
+
+						<li></li>
+
+						<li class=""></li>
+						<li class="nodisplay" style="display: list-item;"><a
+							class="submit viewmode updatebutton addbutton"
+							id="headerconfirmbutton" data-submit-settings="mainformsubmit">Confirm</a>
+						</li>
+						<li class="nodisplay" style="display: list-item;"><a
+							class="viewmode updatebutton addbutton" id="headercancelbutton">Cancel</a>
+						</li>
+						<li class="divider-vertical"></li>
+						<li class="dropdown active"><a class="dropdown-toggle"
+							data-toggle="dropdown" href="#"> Actions <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a id="supcat" class="print" data-toggle="modal">Print</a>
+								</li>
+								<li class="active"><a href="#tasks">Supplier tasks</a></li>
+							</ul>
+						</li>
+						<li class="divider-vertical"></li>
+						<li class="dropdown bigmenu"><a class="dropdown-toggle"
+							data-toggle="dropdown" href=""> <i class="fa fa-th fa-lg"></i>
+						</a>
+							<ul class="dropdown-menu bigmenudropdown">
+								<!--        1st 9 links are shown by default-->
+
+
+								<li class="link"><a target=""
+									href="/netcourier-data/partners/client"><span
+										class="imageplaceholder"><span class="abbrev partners"><i
+												class="fa fa-user fa-lg"></i></span></span><span class="linktitle">Client</span></a>
+								</li>
+								<li class="link"><a target=""
+									href="/netcourier-data/partners/supplier"><span
+										class="imageplaceholder"><span class="abbrev partners"><i
+												class="fa fa-user fa-lg"></i></span></span><span class="linktitle">Supplier</span></a>
+								</li>
+								<li class="link"><a target=""
+									href="/netcourier-data/tariffs/pricechart"><span
+										class="imageplaceholder"><span class="abbrev tariffs"><i
+												class="fa fa-money fa-lg"></i></span></span><span class="linktitle">Price
+											chart</span></a></li>
+								<li class="link"><a target=""
+									href="/netcourier-data/system/user"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">User</span></a>
+								</li>
+								<li class="link"><a target=""
+									href="/netcourier-data/system/product"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Product</span></a>
+								</li>
+								<li class="link"><a target=""
+									href="/netcourier-data/tariffs/route"><span
+										class="imageplaceholder"><span class="abbrev route"><i
+												class="fa fa-road fa-lg"></i></span></span><span class="linktitle">Route</span></a>
+								</li>
+
+								<!--        Button to toggle visibility of hidden links-->
+
+								<!--        All other links only visible on toggle-->
+								<li class="link"><a target=""
+									href="/netcourier-data/tariffs/priceallocation"><span
+										class="imageplaceholder"><span class="abbrev tariffs"><i
+												class="fa fa-money fa-lg"></i></span></span><span class="linktitle">Price
+											allocation</span></a></li>
+								<li class="link"><a target=""
+									href="/netcourier-data/tariffs/tariff"><span
+										class="imageplaceholder"><span class="abbrev tariffs"><i
+												class="fa fa-money fa-lg"></i></span></span><span class="linktitle">Tariff</span></a>
+								</li>
+								<li class="link"><a target=""
+									href="/netcourier-data/logout"><span
+										class="imageplaceholder"><span class="abbrev logout"><i
+												class="fa fa-sign-out"></i></span></span><span class="linktitle">Logout</span></a>
+								</li>
+								<li class="showalllinks"><a>Show all links</a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/service/servicelevel/"><span
+										class="imageplaceholder"><span class="abbrev tariffs"><i
+												class="fa fa-money fa-lg"></i></span></span><span class="linktitle">Service
+											level</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/geography/country/"><span
+										class="imageplaceholder"><span class="abbrev geography"><i
+												class="fa fa-picture-o fa-lg"></i></span></span><span class="linktitle">Country</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/geography/currency/"><span
+										class="imageplaceholder"><span class="abbrev geography"><i
+												class="fa fa-picture-o fa-lg"></i></span></span><span class="linktitle">Currency</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/geography/place/"><span
+										class="imageplaceholder"><span class="abbrev geography"><i
+												class="fa fa-picture-o fa-lg"></i></span></span><span class="linktitle">Place</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/geography/zone/"><span
+										class="imageplaceholder"><span class="abbrev geography"><i
+												class="fa fa-picture-o fa-lg"></i></span></span><span class="linktitle">Zone</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/geography/zonegroup/"><span
+										class="imageplaceholder"><span class="abbrev geography"><i
+												class="fa fa-picture-o fa-lg"></i></span></span><span class="linktitle">Zone
+											Group</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/geography/addressprofile/"><span
+										class="imageplaceholder"><span class="abbrev geography"><i
+												class="fa fa-picture-o fa-lg"></i></span></span><span class="linktitle">Address
+											profile</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/partners/address/"><span
+										class="imageplaceholder"><span class="abbrev geography"><i
+												class="fa fa-picture-o fa-lg"></i></span></span><span class="linktitle">Address</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/partners/contact/"><span
+										class="imageplaceholder"><span class="abbrev partners"><i
+												class="fa fa-user fa-lg"></i></span></span><span class="linktitle">Contact</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/partners/client/"><span
+										class="imageplaceholder"><span class="abbrev partners"><i
+												class="fa fa-user fa-lg"></i></span></span><span class="linktitle">Client</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/partners/supplier/"><span
+										class="imageplaceholder"><span class="abbrev partners"><i
+												class="fa fa-user fa-lg"></i></span></span><span class="linktitle">Supplier</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/tariffs/leg"><span
+										class="imageplaceholder"><span class="abbrev route"><i
+												class="fa fa-road fa-lg"></i></span></span><span class="linktitle">Leg</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/tariffs/runsheet"><span
+										class="imageplaceholder"><span class="abbrev route"><i
+												class="fa fa-road fa-lg"></i></span></span><span class="linktitle">Runsheet</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/tariffs/extra"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Extra</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/system/system"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">System</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/system/list"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">List</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/system/workflow"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Workflow</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/system/layout"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Layout</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/system/numberseries"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Number
+											series</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/system/tax"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Sales
+											tax</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/crm/taskmanager/"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Task</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/task/taskreport/"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Task
+											report</span></a></li>
+
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/lang/language/"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Language</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/dataexchangeformat/dataexchangeformat/"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Data
+											Exchange Format</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/system/tag"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Tag</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/crm/termsofuse"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-cogs fa-lg"></i></span></span><span class="linktitle">Terms
+											of use</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/stock/item/"><span
+										class="imageplaceholder"><span class="abbrev stock"><i
+												class="fa fa-archive fa-lg"></i></span></span><span class="linktitle">Item</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/stock/location/"><span
+										class="imageplaceholder"><span class="abbrev stock"><i
+												class="fa fa-archive fa-lg"></i></span></span><span class="linktitle">Location</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/mailroom/mailroomcluster/"><span
+										class="imageplaceholder"><span class="abbrev mailroom"><i
+												class="fa fa-envelope fa-lg"></i></span></span><span class="linktitle">Mailroom
+											cluster</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/mailroom/mailroom/"><span
+										class="imageplaceholder"><span class="abbrev mailroom"><i
+												class="fa fa-envelope fa-lg"></i></span></span><span class="linktitle">Mailroom</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/mailroom/building/"><span
+										class="imageplaceholder"><span class="abbrev mailroom"><i
+												class="fa fa-envelope fa-lg"></i></span></span><span class="linktitle">Building</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/importexport/country"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Country
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncplace/place"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Place
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/zoneallocation"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Zone
+											allocation Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/importexport/contact"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Contact
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/importexport/client"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Client
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/importexport/list"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">List
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/importexport/supplier"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Supplier
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/importexport/holiday"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Holidays
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/importexport/workflow"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Workflow
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/importexport/leg"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Leg
+											Import/Export Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/priceallocationexportimport"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Price
+											allocation Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/pricechartexportimport"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Price
+											chart Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/pricingrule"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Cost
+											Adjust. Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/multisupplierimport"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Multi
+											supplier Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/carrierexclusionsimport"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Carrier
+											excl. Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/runsheetimport"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Runsheet
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/extraimporter"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Extra
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimportexport/userimport"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">User
+											Import/Export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncroute/route"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Route
+											import/export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/asyncimport/item"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Item
+											import/export</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/import/job"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Job
+											import</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/import/batch"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Job
+											batch status</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/import/job/template/new"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Job
+											import template builder</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/exporter/new"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Exporter
+											scheduler</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/exporter/list"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Scheduled
+											exporters</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/supplierinvoice/list"><span
+										class="imageplaceholder"><span class="abbrev accounts"><i
+												class="fa fa-gbp fa-lg"></i></span></span><span class="linktitle">Supplier
+											invoice</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/weightrecon"><span
+										class="imageplaceholder"><span class="abbrev accounts"><i
+												class="fa fa-gbp fa-lg"></i></span></span><span class="linktitle">Weight
+											reconcile</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/driverinvoice/list"><span
+										class="imageplaceholder"><span class="abbrev accounts"><i
+												class="fa fa-gbp fa-lg"></i></span></span><span class="linktitle">Driver
+											invoice</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/invoice"><span
+										class="imageplaceholder"><span class="abbrev accounts"><i
+												class="fa fa-money fa-lg"></i></span></span><span class="linktitle">Invoice</span></a>
+								</li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/map/map"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-map-marker fa-lg"></i></span></span><span class="linktitle">NetCourier
+											mapping</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/sameday/controller"><span
+										class="imageplaceholder"><span class="abbrev system"><i
+												class="fa fa-map-marker fa-lg"></i></span></span><span class="linktitle">Sameday
+											controller</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/scanjob"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Scan
+											job</span></a></li>
+								<li class="link onlyfullview"><a target=""
+									href="/netcourier-data/pickup"><span
+										class="imageplaceholder"><span class="abbrev importer"><i
+												class="fa fa-download fa-lg"></i></span></span><span class="linktitle">Pickup
+											jobs</span></a></li>
+							</ul></li>
+					</ul>
+					<form class="navbar-search pull-right"
+						action="/netcourier-data/system/user/" method="GET"
+						target="_blank">
+						<span role="status" aria-live="polite"
+							class="ui-helper-hidden-accessible"></span><input
+							class="typeahead search-query navbarsearch activeadvancedsearch ui-autocomplete-input"
+							type="text" placeholder="Search" data-search-id="SEARCH_USER"
+							data-search-settings="advancedsearch" data-provide="typeahead"
+							autocomplete="off" role="textbox" aria-autocomplete="list"
+							aria-haspopup="true"
+							data-search-url="/netcourier-data/search/advanced/us/"> <input
+							class="typeahead-val" type="hidden" id="contentKey" value="">
+						<input class="typeahead-desc" type="hidden" id="contentDesc"
+							value=""> <span class="add-on" data-original-title=""
+							title=""><i class="activeadvancedsearch-icon icon-search"></i></span>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mainbody" id="container">
+
+		<header id="overview" class="subhead">
+			<div class="subnav-fixed subnav" id="subnavscroll" style="top: 66px;">
+				<ul class="nav nav-pills">
+					<li class=""><a href="#user-section">User</a></li>
+				</ul>
+			</div>
+		</header>
+
+		<form action="/netcourier-data/system/user/save" method="post"
+			id="mainform" class="form-horizontal" novalidate="novalidate">
+			<input type="hidden" id="userId" name="userId" value=""> <input
+				type="hidden" id="noContactError"
+				value="Please provide at least one contact info (office/home/mobile phone or contact email)">
+			<input type="hidden" id="noSystemUserError"
+				value="Please select a user privilege for this user"> <input
+				type="hidden" id="driverNumberValidatorUrl"
+				value="/netcourier-data/system/user/drivernumbervalidate/">
+			<section id="user-section">
+				<div class="page-header sectionbartoggle" tabindex="0">
+					<h1>
+						<small><i class="icon-chevron-down"></i><span>User</span></small>
+					</h1>
+				</div>
+				<div class="row anything" style="display: block;">
+					<div class="span6">
+						<fieldset>
+							<div class="control-group">
+								<label for="name" class="control-label">Full name</label>
+								<div class="controls ">
+									<input type="text" data-required="required"
+										class="input-medium include" placeholder="Required" id="name"
+										name="name" value="" data-valid="text" data-maxlength="40">
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="userCode" class="control-label">User name</label>
+								<div class="controls ">
+									<input type="text" data-required="required"
+										class="input-medium include" placeholder="Required"
+										id="userCode" name="userCode" value="" data-valid="text"
+										data-maxlength="50">
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="password" class="control-label">Password</label>
+								<div class="controls ">
+									<input type="password" class="input-medium include required"
+										placeholder="Password" id="password" name="password" value="">
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="officePhone" class="control-label">Office
+									phone number</label>
+								<div class="controls ">
+									<input type="text" class="input-medium include systemContact"
+										placeholder="Office phone number" id="officePhone"
+										name="officePhone" value="" data-valid="text"
+										data-maxlength="20">
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="extension" class="control-label">Extension</label>
+								<div class="controls ">
+									<input type="text" class="input-medium include"
+										placeholder="Extension" id="extension" name="extension"
+										value="" data-valid="text" data-maxlength="10">
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="mobile" class="control-label">Mobile phone
+									number</label>
+								<div class="controls ">
+									<input type="text" class="input-medium include systemContact"
+										placeholder="Mobile phone number" id="mobile" name="mobile"
+										value="" data-valid="text" data-maxlength="20">
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="homePhone" class="control-label">Home phone
+									number</label>
+								<div class="controls ">
+									<input type="text" class="input-medium include systemContact"
+										placeholder="Home phone number" id="homePhone"
+										name="homePhone" value="" data-valid="text"
+										data-maxlength="20">
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="email" class="control-label">Contact email
+									address</label>
+								<div class="controls ">
+									<input type="text" class="input-medium include systemContact"
+										placeholder="Contact email address" id="email" name="email"
+										value="" data-max="300" data-min="0">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">User type</label> <input
+									type="hidden" id="type" value="S">
+								<div class="controls">
+									<label class="radio"> <input value="S" type="radio"
+										data-clickchangegroup="enableforuser"
+										class="include clickchangetrigger" id="type1" name="type"
+										checked="checked"> <span>Standard</span>
+									</label> <label class="radio"> <input value="H" type="radio"
+										data-clickchangepair="enableforusery"
+										data-clickchangegroup="enableforuser"
+										class="include clickchangetrigger" id="type2" name="type">
+										<span>Handheld</span>
+									</label> <label class="radio"> <input value="B" type="radio"
+										data-clickchangepair="enableforusery"
+										data-clickchangegroup="enableforuser"
+										class="include clickchangetrigger" id="type3" name="type">
+										<span>Both standard and handheld</span>
+									</label>
+								</div>
+							</div>
+							<fieldset class="nonStandardItems nodisplay"
+								data-clickchangepair="enableforusery"
+								data-clickchangegroup="enableforuser">
+								<div class="control-group">
+									<label for="supplierSearch" class="control-label">Supplier</label>
+									<div class="controls ">
+										<div class="input-append">
+											<span role="status" aria-live="polite"
+												class="ui-helper-hidden-accessible"></span><input
+												type="text" id="supplierSearch"
+												data-search-id="SUPPLIER_SEARCH"
+												placeholder="Search supplier" data-search-settings=""
+												class="typeahead input-medium include ui-autocomplete-input"
+												autocomplete="off"
+												data-search-url="/netcourier-data/search/supplier/" value=""><span
+												class="add-on" data-original-title="" title=""><i
+												class="icon-search "></i></span> <span class="no-search-results"></span>
+											<input type="hidden" class="typeahead-val include"
+												id="agentId" name="agentId" value=""> <input
+												type="hidden" id="supplierDesc"
+												class="typeahead-desc include" value="">
+										</div>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="driverNumber">Driver
+										no</label>
+									<div class="controls ">
+										<input type="text" class="input-medium include"
+											placeholder="Driver no" id="driverNumber" name="driverNumber"
+											value="">
+									</div>
+								</div>
+								<div class="control-group">
+									<label for="vehicleType" class="control-label">Vehicle
+										type</label>
+									<div class="controls">
+										<select class="input-large include" id="vehicleType"
+											name="vehicleType">
+											<option value="" selected="selected"></option>
+											<option value="A BC">A BC</option>
+											<option value="BIKE">Bike</option>
+											<option value="BIKE">Bike</option>
+											<option value="DEDICATED VAN">Dedicated van</option>
+											<option value="SHARED VAN">Shared van</option>
+											<option value="my">new type</option>
+
+										</select>
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label for="vatNo" class="control-label">Driver tax
+										code</label>
+									<div class="controls">
+										<input type="text" class="input-large include" id="vatNo"
+											name="vatNo" value="">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="taxStatus">Tax status</label>
+									<div class="controls">
+										<select class="input-large include" id="taxStatus"
+											name="taxStatus">
+											<option value=""></option>
+											<option data-status="L" value="1">UK registered</option>
+											<option data-status="L" value="2">UK not registered</option>
+											<option data-status="L" value="3">EC registered</option>
+											<option data-status="L" value="4">EC not registered</option>
+											<option data-status="L" value="5">Non-EC</option>
+											<option data-status="L" value="6">Test</option>
+
+										</select>
+									</div>
+								</div>
+								<div class="control-group">
+									<label for="invoiceEmail" class="control-label">Invoice
+										email</label>
+									<div class="controls">
+										<input type="text" class="input-medium include"
+											data-maxlength="500"
+											data-maxlengthmessage="Email value too long"
+											id="invoiceEmail" name="invoiceEmail" value="" data-max="300"
+											data-min="0">
+									</div>
+								</div>
+								<div class="control-group">
+									<label for="invoicetemplate" class="control-label">Invoice
+										template</label>
+									<div class="controls">
+										<select class="input-large include" id="invoiceTemplate"
+											name="invoiceTemplate">
+											<option value="" selected="selected"></option>
+											<option value="std_fixed_manifest_template.xsl">my
+												test</option>
+
+										</select>
+									</div>
+								</div>
+							</fieldset>
+							<div class="control-group">
+								<label for="weightUnit" class="control-label">Weight
+									unit</label>
+								<div class="controls ">
+									<div class="styled-select   chromeselectfix"
+										style="width: 164px">
+										<select class="input-medium include" id="weightUnit"
+											name="weightUnit" style="width: 182px;">
+											<option value="" selected="selected"></option>
+											<option value="KG">KG - Kilogram</option>
+											<option value="LB">LB - Pound</option>
+										</select><i class="icon icon-chevron-down"></i>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="lengthUnit" class="control-label">Dimension
+									unit</label>
+								<div class="controls ">
+									<div class="styled-select   chromeselectfix"
+										style="width: 164px">
+										<select class="input-medium include" id="lengthUnit"
+											name="lengthUnit" style="width: 182px;">
+											<option value="" selected="selected"></option>
+											<option value="CM">CM - Centimeter</option>
+											<option value="IN">IN - Inches</option>
+										</select><i class="icon icon-chevron-down"></i>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="distanceUnit" class="control-label">Distance
+									unit</label>
+								<div class="controls ">
+									<div class="styled-select   chromeselectfix"
+										style="width: 164px">
+										<select class="input-medium include" id="distanceUnit"
+											name="distanceUnit" style="width: 182px;">
+											<option value="" selected="selected"></option>
+											<option value="KM">KM - Kilometer</option>
+											<option value="ML">ML - Mile</option>
+										</select><i class="icon icon-chevron-down"></i>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="currencySearch" class="control-label">Currency</label>
+								<div class="controls ">
+									<div class="input-append">
+										<span role="status" aria-live="polite"
+											class="ui-helper-hidden-accessible"></span><input type="text"
+											id="currencySearch"
+											class="typeahead input-medium include ui-autocomplete-input"
+											placeholder="Search currency" autocomplete="off"
+											data-search-settings="" data-search-id="CURRENCY_SEARCH"
+											data-search-url="/netcourier-data/search/currency/" value=""><span
+											class="add-on" data-original-title="" title=""><i
+											class="icon-search"></i></span> <span class="no-search-results"></span>
+										<input type="hidden" class="typeahead-val include"
+											id="userCurrency" name="userCurrency" value=""> <input
+											type="hidden" class="typeahead-desc include" value="">
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<div class="span6">
+						<fieldset>
+							<div class="control-group">
+								<label for="productId" class="control-label">Product</label>
+								<div class="controls ">
+									<div class="styled-select   chromeselectfix"
+										style="width: 164px">
+										<select class="input-medium include" id="productId"
+											name="productId" style="width: 182px;">
+											<option value="" selected="selected"></option>
+											<option data-status="L" value="10000045">Regular
+												collection</option>
+											<option data-status="L" value="10000047">Overnight</option>
+											<option data-status="L" value="10000049">Lost
+												Property</option>
+											<option data-status="L" value="10000059">Mail</option>
+											<option data-status="L" value="10000056">Inbound</option>
+											<option data-status="L" value="10008776">d</option>
+											<option data-status="L" value="10000055">Secure</option>
+											<option data-status="L" value="10014053">TTT</option>
+											<option data-status="L" value="10014066">TTT1</option>
+											<option data-status="L" value="10016583">Taxi
+												Booking</option>
+											<option data-status="L" value="10017371">Return</option>
+											<option data-status="L" value="10000048">Sameday</option>
+											<option data-status="L" value="10000046">Express</option>
+											<option data-status="L" value="10000053">Import</option>
+											<option data-status="L" value="10020463">JPATEST</option>
+											<option data-status="L" value="10020466">JPATEST</option>
+
+										</select><i class="icon icon-chevron-down"></i>
+									</div>
+								</div>
+							</div>
+							<!-- [Fixed bug: 3191] 
+								<div class="control-group" >
+ 									<label for="clientSearch" class="control-label" th:text="#{user.label.client}">Client</label> 
+									<div class="controls " th:classappend="${client != null} and ${client.status+''!='L'} ? 'archiveError'">
+										<div class="input-append">
+											<input type="text" id="clientSearch" data-search-id="CLIENT_SEARCH" th:placeholder="#{user.label.client.placeholder}" placeholder="Search client"
+												th:value="${client} ? ${client.code + ' - ' + client.name}" data-search-settings=""
+												class="typeahead input-medium include ui-autocomplete-input" th:attr="data-search-url=@{/search/client/}" 
+												autocomplete="off" /><span class="add-on "><i class="icon-search "></i></span>
+												<span class="no-search-results"></span>
+										</div>
+										<input type="hidden" th:field="*{clientId}" class="typeahead-val include"/>
+									</div>
+								</div>
+								<div class="control-group" >
+ 									<label for="supplierSearch" class="control-label" th:text="#{user.label.supplier}">Supplier</label> 
+									<div class="controls " th:classappend="${supplier != null} and ${supplier.status+''!='L'} ? 'archiveError'">
+										<div class="input-append">
+											<input type="text" id="supplierSearch" data-search-id="SUPPLIER_SEARCH" th:placeholder="#{user.label.supplier.placeholder}" placeholder="Search supplier"
+												th:value="${supplier} ? ${supplier.name}" data-search-settings=""
+												class="typeahead input-medium include ui-autocomplete-input" th:attr="data-search-url=@{/search/supplier/}" 
+												autocomplete="off" /><span class="add-on "><i class="icon-search "></i></span>
+												<span class="no-search-results"></span>
+										</div>
+										<input type="hidden" th:field="*{agentId}" class="typeahead-val include"/>
+									</div>
+								</div>-->
+							<div class="control-group">
+								<label for="displayRecordNo" class="control-label">Display
+									records upto</label>
+								<div class="controls ">
+									<input type="text" class="input-medium include"
+										placeholder="Display records upto" id="displayRecordNo"
+										name="displayRecordNo" value="" data-valid="integer"
+										data-max="999999" data-min="0">
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls">
+									<label class="checkbox"> <input type="checkbox"
+										class="include" id="allowAutoCompleteBooking1"
+										name="allowAutoCompleteBooking" value="true">Turn on
+										auto complete in booking screen<input type="hidden"
+										name="_allowAutoCompleteBooking" value="on">
+									</label> <label class="checkbox"> <input type="checkbox"
+										class="include" id="noviceUser1" name="noviceUser"
+										value="true">Novice user<input type="hidden"
+										name="_noviceUser" value="on">
+									</label>
+									<!--label class="checkbox">
+									    	<input type="checkbox" th:field="*{permitBookingForOthers}" class="include" th:text="#{user.label.permitothers}"/>
+									    </label-->
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">User privilege</label>
+								<div class="controls" id="userPrivilege">
+									<label class="checkbox"> <input type="checkbox"
+										class="include" id="systemUser1" name="systemUser"
+										value="true">Metafour system user<input type="hidden"
+										name="_systemUser" value="on">
+									</label> <label class="checkbox"> <input type="checkbox"
+										class="include" id="systemManager1" name="systemManager"
+										value="true">System Manager<input type="hidden"
+										name="_systemManager" value="on">
+									</label> <label class="checkbox"> <input type="checkbox"
+										class="include" id="role21" name="role2" value="true">System
+										Administrator<input type="hidden" name="_role2" value="on">
+									</label> <label class="checkbox"> <input type="checkbox"
+										class="include" id="role31" name="role3" value="true">System
+										Supervisor<input type="hidden" name="_role3" value="on">
+									</label> <label class="checkbox"> <input type="checkbox"
+										class="include" id="role41" name="role4" value="true">System
+										User<input type="hidden" name="_role4" value="on">
+									</label> <label class="checkbox"> <input type="checkbox"
+										class="include" id="role51" name="role5" value="true"><input
+										type="hidden" name="_role5" value="on">
+									</label> <label class="checkbox"> <input type="checkbox"
+										class="include" id="role61" name="role6" value="true"><input
+										type="hidden" name="_role6" value="on">
+									</label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</section>
+		</form>
+		<!-- Supplier Task section -->
+		<section id="tasks">
+			<div class="page-header sectionbartoggle" tabindex="0">
+				<h1>
+					<small><i class="icon-chevron-down"></i>Tasks</small>
+				</h1>
+			</div>
+			<div id="divTasksList" class="row anything" style="display: block;">
+				<form class="form-horizontal" method="post" id="taskstableform"
+					action="/netcourier-data/crm/taskmanager/list/user/null"
+					novalidate="novalidate">
+					<div class="span12">
+						<div id="taskstable_wrapper"
+							class="dataTables_wrapper form-inline no-footer">
+							<div class="row-fluid">
+								<div class="pull-left">
+									<div class="dataTables_length" id="taskstable_length">
+										<label><div class="styled-select   chromeselectfix"
+												style="width: 89px">
+												<select name="taskstable_length" aria-controls="taskstable"
+													class="" style="width: 107px;"><option value="10">10</option>
+													<option value="25">25</option>
+													<option value="50">50</option></select><i
+													class="icon icon-chevron-down"></i>
+											</div> records per page</label>
+									</div>
+								</div>
+								<div class="pull-right">
+									<div id="taskstable_filter" class="dataTables_filter">
+										<label>Filter returned records:<input type="search"
+											class="" placeholder="" aria-controls="taskstable"></label>
+									</div>
+								</div>
+							</div>
+							<div class="tablewrapper">
+								<table
+									class="table table-striped datatabled dataTable no-footer"
+									id="taskstable" role="grid" aria-describedby="taskstable_info">
+									<thead>
+										<tr role="row">
+											<th data-defaultsort="asc" class="nowrap sorting_asc"
+												tabindex="0" aria-controls="taskstable" rowspan="1"
+												colspan="1" aria-sort="ascending"
+												aria-label="Assigned to: activate to sort column descending">Assigned
+												to</th>
+											<th class="sorting" tabindex="0" aria-controls="taskstable"
+												rowspan="1" colspan="1"
+												aria-label="Status: activate to sort column ascending">Status</th>
+											<th class="sorting" tabindex="0" aria-controls="taskstable"
+												rowspan="1" colspan="1"
+												aria-label="Deadline: activate to sort column ascending">Deadline</th>
+											<th class="sorting" tabindex="0" aria-controls="taskstable"
+												rowspan="1" colspan="1"
+												aria-label="Task type: activate to sort column ascending">Task
+												type</th>
+											<th class="sorting" tabindex="0" aria-controls="taskstable"
+												rowspan="1" colspan="1"
+												aria-label="Task: activate to sort column ascending">Task</th>
+											<th data-nosort="Y" class="sorting_disabled" rowspan="1"
+												colspan="1" aria-label=""></th>
+										</tr>
+									</thead>
+									<tbody>
+
+										<tr class="odd">
+											<td valign="top" colspan="6" class="dataTables_empty">Sorry,
+												no records were found</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row-fluid toptweak">
+								<div class="pull-left">
+									<div class="dataTables_info" id="taskstable_info" role="status"
+										aria-live="polite">Sorry, no records were found</div>
+								</div>
+								<div class="pull-right">
+									<div class="dataTables_paginate paging_ellipses"
+										id="taskstable_paginate">
+										<a class="paginate_button prev" disabled="disabled">Previous</a><a
+											class="paginate_button firstpage" disabled="disabled">1</a><span
+											class="paginate_numbers"></span><a
+											class="paginate_button lastpage" disabled="disabled">0</a><a
+											class="paginate_button next" disabled="disabled">Next</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<script
+				src="/netcourier-data/resources/3.5.2-SNAPSHOT/crm/js/taskmanager.js"
+				type="text/javascript" style="display: none;"></script>
+		</section>
+	</div>
+	<div class="modal nodisplay" id="tasksmodal" tabindex="-1"
+		role="dialog" aria-hidden="true" data-backdrop="static"
+		data-keyboard="true">
+		<div class="modal-body"></div>
+	</div>
+
+	<script type="text/javascript"
+		src="/netcourier-data/resources/3.5.2-SNAPSHOT/charts/js/Chart.js"></script>
+	<script type="text/javascript"
+		src="/netcourier-data/resources/3.5.2-SNAPSHOT/charts/js/reporting.js"></script>
+
+
+	<footer class="text-center">
+		<small><span>Powered by</span> <a href="http://metafour.com/"
+			target="_">Metafour Ltd</a>. © Copyright <span>2019</span></small>
+	</footer>
+
+	<ul
+		class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all"
+		id="ui-id-1" tabindex="0" style="display: none; position: fixed;"></ul>
+	<ul
+		class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all"
+		id="ui-id-2" tabindex="0" style="display: none;"></ul>
+	<ul
+		class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all"
+		id="ui-id-3" tabindex="0" style="display: none;"></ul>
+	<span th:substituteby="commons :: common-html"></span>
+	<span th:substituteby="commons :: common-js"></span>
+</body>
 </html>

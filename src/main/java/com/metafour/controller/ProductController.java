@@ -52,16 +52,21 @@
 //}
 package com.metafour.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,11 +79,10 @@ import com.metafour.service.ProductService;
 @RequestMapping("/product")
 public class ProductController {
 
-	@Autowired ProductService personService;
 
-	
-	
-	
+	@Autowired
+	ProductService personService;
+
 	@RequestMapping
 	public String newScreen(final ModelMap model) throws MetafourStarterException {
 		return updateScreen(null, model);
@@ -86,8 +90,8 @@ public class ProductController {
 
 	@RequestMapping("/{id}")
 	public String updateScreen(@PathVariable String id, final ModelMap model) throws MetafourStarterException {
-		model.addAttribute("product", new ProductModel());
-		model.addAttribute("product_details",personService.listAllProducts());
+		model.addAttribute("product",new ProductModel());
+		model.addAttribute("product_details", personService.listAllProducts());
 		return "product";
 	}
 //	it is very important
@@ -98,11 +102,20 @@ public class ProductController {
 //		return "product";
 //	}
 
-	@RequestMapping(method=RequestMethod.POST)
+//	@InitBinder
+//    public void initBinder(WebDataBinder webDataBinder) {
+//             SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
+//             dateFormat.setLenient(false);
+//             webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+//         }
+	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> addNewProduct(@Valid ProductModel person, BindingResult binding, final ModelMap model) throws MetafourStarterException, BindException {
+	public Map<String, String> addNewProduct(@Valid ProductModel person, BindingResult binding, final ModelMap model)
+			throws MetafourStarterException, BindException {
+		
 		Map<String, String> result = new HashMap<>();
-		if (binding.hasErrors()) throw new BindException(binding);
+		if (binding.hasErrors())
+			throw new BindException(binding);
 
 		if (person.getId() == null || personService.getById(person.getId()) == null)
 			personService.addProduct(person);

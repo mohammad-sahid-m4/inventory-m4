@@ -1,6 +1,7 @@
 package com.metafour.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -12,9 +13,19 @@ import com.metafour.model.ProductModel;
 
 @Service
 public class ProductService {
-
+	
 	List<ProductModel> products = new ArrayList<>();
-
+//	public void manualAdd() {
+//		ProductModel pm=new ProductModel();
+//		pm.setId("3");
+//		pm.setName("glass");
+//		pm.setProduct_price(40);
+////		pm.setDate(new Date(2002,3,1));
+//		pm.setQty(4);
+//		products.add(pm);
+//	}
+	
+	
 	public void addProduct(ProductModel product) throws MetafourStarterException {
 		product.setId(String.valueOf(new Random().nextLong()));
 		products.add(product);
@@ -49,7 +60,13 @@ public class ProductService {
 	
 	public List<ProductModel> listAllProducts() 
 	{
+//		manualAdd();
 	    return new ArrayList<>(products);
+	}
+
+	public ProductModel listProductsName() 
+	{
+	    return products.get(1);
 	}
 
 }

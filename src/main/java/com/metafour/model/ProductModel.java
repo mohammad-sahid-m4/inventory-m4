@@ -1,62 +1,34 @@
 package com.metafour.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Data
 public class ProductModel {
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd-MMM-yyyy");
+
 	private String id;
 	@NotEmpty
 	private String name;
-
+	@Min(value = 1, message = "The value must be greater than 0")
 	private int product_price;
-	
+	@Min(value = 1, message = "The value must be greater than 0")
 	private int qty;
 	@NotNull
-	private Date date;
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getProduct_price() {
-		return product_price;
-	}
-	public void setProduct_price(int product_price) {
-		this.product_price = product_price;
-	}
-	public int getQty() {
-		return qty;
-	}
-	public void setQty(int qty) {
-		this.qty = qty;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public ProductModel(String id, @NotEmpty String name, int product_price,  int qty,
-			@NotNull Date date) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.product_price = product_price;
-		this.qty = qty;
-		this.date = date;
-	}
-	public ProductModel() {
-		super();
-	}
-	
+	private String date = dateFormat.format(new Date());
+
 }

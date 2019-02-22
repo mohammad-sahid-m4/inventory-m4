@@ -154,7 +154,7 @@ m4.mainpagesubmiterror = function(jqXHR, textStatus, errorThrown) {
 				var field = $("[name='" + item.field + "']");
 				if (field && field.is(".typeahead-val")) field = field.siblings(".typeahead");
 				if (field) field.addClass("error");
-				errMsg += item.field + " = " + item.message + ", ";
+				errMsg += item.field + " = " + item.defaultMessege + ", ";
 			});
 			showError(errMsg);
 		}
