@@ -2,6 +2,7 @@ package com.metafour.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -60,13 +61,23 @@ public class ProductService {
 	
 	public List<ProductModel> listAllProducts() 
 	{
-//		manualAdd();
 	    return new ArrayList<>(products);
 	}
 
 	public ProductModel listProductsName() 
 	{
 	    return products.get(1);
+	}
+	
+	public String ret() {
+		 ProductModel retrievedThing = null;
+		 Iterator<ProductModel> i = products.iterator();
+		 if(i.hasNext()){
+		      retrievedThing = i.next();
+		 }
+		 if(retrievedThing==null) return null;
+		 else
+		 return retrievedThing.getName();
 	}
 
 }
