@@ -13,11 +13,4 @@ public class MainController {
 		model.addAttribute("Messege");
 		return "index";
 	}
-
-//	@GetMapping(value = { "order" })
-//	public String order(Model model) {
-//		model.addAttribute("Messege");
-//		return "Sahid";
-//	}
-
 }

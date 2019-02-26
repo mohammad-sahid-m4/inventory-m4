@@ -5,17 +5,15 @@
 		<title th:text="#{person.title}">Person</title>
 		<span th:substituteby="commons :: common-css"></span>
 	</head>
-	
 	<body th:with="isNew=${#strings.isEmpty(product.id)}">	
 		<div id="headerbar" class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-
-					<span class="brand">IMS</span>
-
+					<span class="brand">Product</span>
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right" th:if="${isNew}">
 							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.create}">Create</a></li>
+							<li><a th:href="@{/}">Home</a></li>
 							<li><a th:href="@{/product}">Product</a></li>
 							<li><a th:href="@{/order}">Order</a></li>
 						</ul>
@@ -34,12 +32,7 @@
 				</div>
 			</div>
 		</div>
-              
-                
-
-
 		<div id="container" class="container">		
-		
 		<header id="overview" class="subhead">
 			<div class="subnav-fixed subnav" id="subnavscroll" style="top: 66px;">
 				<ul class="nav nav-pills">
@@ -48,29 +41,28 @@
 				</ul>
 			</div>
 		</header>
-		
 			<form id="mainform" th:object="${product}" class="form-horizontal" method="POST" autocomplete="off" th:action="@{'/product'}">
 				<section id="add-product">
-				<div class="page-header sectionbartoggle" tabindex="0">
-					<h1>
-						<small><i class="icon-chevron-down"></i><span>Add product</span></small>
-					</h1>
-				</div>
+					<div class="page-header sectionbartoggle" tabindex="0">
+						<h1>
+							<small><i class="icon-chevron-down"></i><span>Add product</span></small>
+						</h1>
+					</div>
 					<div class="row anything noheader">
 						<div class="span6">
 							<fieldset>						
 								<div class="control-group">
-									<label for="name" class="control-label">Product Name</label>
+									<label for="name" class="control-label">Product name</label>
 									<div class="controls">
-										<input id="namee"  th:field="*{name}" data-required="required" type="text" data-maxlength="50"
-											class="include" placeholder="Person name"/> 
+										<input id="name"  th:field="*{productName}" type="text" data-maxlength="50"
+											class="include" placeholder="Product name"/> 
 									</div>
 								</div>
 								<div class="control-group">
-									<label for="name" class="control-label">Product Price</label>
+									<label for="price" class="control-label">Product price</label>
 									<div class="controls">
-										<input id="namee"  th:field="*{product_price}" data-required="required" type="text" data-maxlength="50"
-											class="include" placeholder="Person name" /> 
+										<input id="price"  th:field="*{productPrice}"  type="number" data-maxlength="50"
+											class="include" placeholder="Product price" /> 
 									</div>
 								</div>
 							</fieldset>
@@ -79,18 +71,18 @@
 						<div class="span6">
 						 <fieldset>
 						  		<div class="control-group">
-									<label for="name" class="control-label" >Product Quantity</label>
+									<label for="quantity" class="control-label" >Product quantity</label>
 									<div class="controls">
-										<input id="namee"  th:field="*{qty}" data-required="required" type="text" data-maxlength="50"
-											class="include" placeholder="Person name" /> 
+										<input id="quantity"  th:field="*{productQuantity}" type="number" data-maxlength="50"
+											class="include" placeholder="Product quantity" /> 
 									</div>
 								</div>
 									<!--  for date format -->
 								<div class="control-group">
-									<label for="datepicker" class="control-label">Date</label>
+									<label for="datepicker" class="control-label">Purchase date</label>
 									<div class="controls">
 										<div class="input-append">
-											<input id="datepicker"	data-required="required" th:field="*{date}" class="input-datesize include con-datepicker con-futurdate" type="text"
+											<input id="datepicker"	data-required="required" th:field="*{productDate}" class="input-datesize include con-datepicker con-futuredate" type="text"
 												name="datepicker"/>
 												<span class="add-on"><i
 												class="icon-calendar"></i></span>
@@ -125,10 +117,10 @@
 								    </thead>
 								    <tbody>
 								        <tr  th:each="product: ${product_details}" >
-								            <td th:text="${product.name}"></td>
-								            <td th:text="${product.product_price}"></td>
-								            <td th:text="${product.qty}"></td>
-								            <td th:text="${product.date}" ></td>
+								            <td th:text="${product.productName}"></td>
+								            <td th:text="${product.productPrice}"></td>
+								            <td th:text="${product.productQuantity}"></td>
+								            <td th:text="${product.productDate}" ></td>
 								        </tr>
 								    </tbody>
 								</table>
@@ -139,5 +131,12 @@
 
 		<span th:substituteby="commons :: common-html"></span>
 		<span th:substituteby="commons :: common-js"></span>
+		<script type="text/javascript">
+
+		$(document).ready(function(){
+			$("#price").val("");
+			$("#quantity").val("");
+			}); 
+		</script>
 	</body>
 </html>

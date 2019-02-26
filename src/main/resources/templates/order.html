@@ -11,11 +11,12 @@
 			<div class="navbar-inner">
 				<div class="container">
 
-					<span class="brand">IMS</span>
+					<span class="brand">Order</span>
 
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right" th:if="${isNew}">
 							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.create}">Create</a></li>
+							<li><a th:href="@{/}">Home</a></li>
 							<li><a th:href="@{/product}">Product</a></li>
 							<li><a th:href="@{/order}">Order</a></li>
 						</ul>
@@ -43,14 +44,14 @@
 		<header id="overview" class="subhead">
 			<div class="subnav-fixed subnav" id="subnavscroll" style="top: 66px;">
 				<ul class="nav nav-pills">
-					<li class=""><a href="#add-product">Add product</a></li>
-					<li class=""><a href="#product-table">Product table</a></li>
+					<li class=""><a href="#add-order">Add order</a></li>
+					<li class=""><a href="#order-table">Order table</a></li>
 				</ul>
 			</div>
 		</header>
 		
 			<form id="mainform" th:object="${order}" class="form-horizontal" method="POST" autocomplete="off" th:action="@{'/order'}">
-				<section id="add-product">
+				<section id="add-order">
 				<div class="page-header sectionbartoggle" tabindex="0">
 					<h1>
 						<small><i class="icon-chevron-down"></i><span>Add product</span></small>
@@ -63,20 +64,23 @@
 								<div class="control-group">
 									<label for="groupofradios" class="control-label">Order type</label>
 									<div class="controls">
-										 <input type="radio"
-											id="groupofradiosradio1"  value="sale" th:field="*{orderType}" class="include" />
-											Sale &nbsp;
-										<input type="radio"
-											id="groupofradiosradio2" value="purchase" th:field="*{orderType}" class="include" />
-											Purchase
-										</div>
+										<label class="radio">
+								            <input type="radio" id="groupofradios2radio1" value="sale" th:field="*{orderType}" name="radio-order-type" class="include" checked/>
+								            Sale
+								        </label>
+								        <label class="radio">
+								            <input type="radio" id="groupofradios2radio2" value="purchase" th:field="*{orderType}" name="radio-order-type" class="include"/>
+								            Purchase
+								        </label>
+									</div>
 								</div>
 							<!-- Highes Degree using Select input -->
 							<div class="control-group">
 							    <label for="selectwithinputs" class="control-label">Product name</label>
 							    <div class="controls">
 							        <select th:field="*{productName}" class="input-large include" id="selectwithinputs">
-							            <option th:each="product: ${productNames}" th:text="${product.name}" th:value="${product.id}"  />
+							            <option value="">Select Product</option>
+							            <option th:each="product: ${productNames}" th:text="${product.productName}" th:attr="price=${product.productPrice},id=${product.id}" th:value="${product.productName}"  />
 							        </select>
 							    </div>
 							</div>
@@ -96,7 +100,14 @@
 								<label for="name" class="control-label">Product price</label>
 								<div class="controls">
 									<input id="name"  th:field="*{productPrice}" data-required="required" type="text" data-maxlength="50"
-										class="include price-input" placeholder="Product price" /> 
+										class="include price-input" placeholder="Product price" readonly/> 
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="name" class="control-label">Total price</label>
+								<div class="controls">
+									<input id="name"  th:field="*{totalPrice}" data-required="required" type="text" data-maxlength="50"
+										class="include total-price-input" placeholder="Product price" readonly/> 
 								</div>
 							</div>
 							</fieldset>
@@ -108,32 +119,45 @@
      <br>
      <br>
      <br>
-			<section id="product-table">
+			<section id="order-table">
 					<div class="page-header sectionbartoggle" tabindex="0">
 						<h1>
 							<small><i class="icon-chevron-down"></i>Product table</small>
 						</h1>
 					</div>
-					<div id="divTaskList" class="row anything noheader" >
+					<a href="#" class="btn btn-warning" id="print" onclick="printContent('examples')">Print PDF</a>
+					<div id="examples" class="row anything noheader" >
 						<div class="span12">
 						  		<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
 								    <thead>
 								        <tr>
-								            <th>Product Name</th>
-								            <th>Product Price</th>
-								            <th>Product Quantity</th>
-								            <th>Date</th>
+								            <th>Order type</th>
+								            <th>Product name</th>
+								            <th>Product quantity</th>
+								            <th>Product price</th>
+								            <th>Total price</th>
 								        </tr>
 								    </thead>
 								    <tbody>
-								        <tr  th:each="product: ${product_details}" >
-								            <td th:text="${product.name}"></td>
-								            <td th:text="${product.product_price}"></td>
-								            <td th:text="${product.qty}"></td>
-								            <td th:text="${product.date}" ></td>
+								        <tr  th:each="product: ${order_details}" >
+								            <td th:text="${product.orderType}"></td>
+								            <td th:text="${product.productName}"></td>
+								            <td th:text="${product.productQuantity}"></td>
+								            <td th:text="${product.productPrice}" ></td>
+								            <td th:text="${product.totalPrice}" ></td>
 								        </tr>
 								    </tbody>
-								</table>
+								    <tfoot>
+								        <tr>
+								            <td></td>
+								            <td></td>
+								            <td></td>
+								            <td></td>
+								            <td style="font-weight:bold;"class="total-price-class">Total:</td>
+								        </tr>
+								    </tfoot>
+								</table >
+								<a th:href="@{/checkout}" class="btn btn-primary pull-right" id="checkout-button">Checkout</a>
 						</div>
 					</div>
 			</section>
@@ -143,11 +167,45 @@
 		<span th:substituteby="commons :: common-js"></span>
 		
 		<script type="text/javascript">
-		$(document).ready(function(){
-			  $(".qty-input").keyup(function(){
-			    $(".price-input").val($(".qty-input").val()*5);
-			  });
+		var price=0
+		$('#selectwithinputs').change(function(){		
+			 price=($('option:selected', this).attr('price'));
+			 $(".price-input").val(price);
+			 $(".total-price-input").val(price);
+			 $(".qty-input").val(1);
 			});
+		$(document).ready(function(){
+			
+			  $(".qty-input").keyup(function(){
+				  if($(".qty-input").val()>0)
+					   $(".total-price-input").val($(".qty-input").val()*price);
+				  else
+					  $(".total-price-input").val(price);
+			  });
+			  
+			  $(".qty-input").keyup(function(){
+				  if(price==0){
+					  alert("First select the product");
+					  $(".qty-input").val(0)
+				  }
+			  });
+				    var theTotal = 0;
+				    $("table tbody td:nth-child(5)").each(function () {
+				        var val = $(this).text().replace(" ", "").replace(",-", "");
+				        theTotal += parseInt(val);
+				    });
+				    $(".total-price-class").text("Total is : "+theTotal);
+				    
+			}); 
+		$('input:radio[name=radio-order-type][value=sale]').click();
+
+		function printContent(el) {
+	        var restorepage = document.body.innerHTML;
+	        var printcontent = document.getElementById(el).innerHTML;
+	        document.body.innerHTML = printcontent;
+	        window.print();
+	        document.body.innerHTML = restorepage;
+	    }
 		</script>
 	</body>
 </html>

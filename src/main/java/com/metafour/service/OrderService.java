@@ -1,21 +1,17 @@
 package com.metafour.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
-
 import com.metafour.exception.MetafourStarterException;
 import com.metafour.model.OrderModel;
-import com.metafour.model.ProductModel;
 
 @Service
 public class OrderService {
-	
-	List<OrderModel> products = new ArrayList<>();
+
+	List<OrderModel> orders = new ArrayList<>();
 //	public void manualAdd() {
 //		ProductModel pm=new ProductModel();
 //		pm.setId("3");
@@ -23,45 +19,43 @@ public class OrderService {
 //		pm.setProduct_price(40);
 ////		pm.setDate(new Date(2002,3,1));
 //		pm.setQty(4);
-//		products.add(pm);
+//		orders.add(pm);
 //	}
-	
-	
-	public void addProduct(OrderModel product) throws MetafourStarterException {
-		product.setId(String.valueOf(new Random().nextLong()));
-		products.add(product);
+
+	public void addOrder(OrderModel order) throws MetafourStarterException {
+		order.setId(String.valueOf(new Random().nextLong()));
+		orders.add(order);
 	}
 
-	public void updatePerson(OrderModel person) throws MetafourStarterException {
-		List<OrderModel> rsts = products.stream().filter(r -> r.getId().equals(person.getId())).collect(Collectors.toList());
+	public void updateOrder(OrderModel person) throws MetafourStarterException {
+		List<OrderModel> rsts = orders.stream().filter(r -> r.getId().equals(person.getId()))
+				.collect(Collectors.toList());
 		if (rsts.isEmpty())
 			throw new MetafourStarterException("No Person found with ID '" + person.getId() + "' for update!");
-		products.remove(rsts.get(0));
-		products.add(person);
+		orders.remove(rsts.get(0));
+		orders.add(person);
 	}
 
 	public void deletePerson(OrderModel person) throws MetafourStarterException {
-		List<OrderModel> rsts = products.stream().filter(r -> r.getId().equals(person.getId())).collect(Collectors.toList());
+		List<OrderModel> rsts = orders.stream().filter(r -> r.getId().equals(person.getId())).collect(Collectors.toList());
 		if (rsts.isEmpty())
 			throw new MetafourStarterException("No Person found with ID '" + person.getId() + "' for delete!");
-		products.remove(rsts.get(0));
+		orders.remove(rsts.get(0));
 	}
 
 	public List<OrderModel> find(String hint) {
-		return hint.equals("?")	? products: products.stream().filter(d -> d.getId().toLowerCase().contains(hint.toLowerCase())|| d.getProductName().toLowerCase().contains(hint.toLowerCase()))
-								.collect(Collectors.toList());
+		return hint.equals("?") ? orders: orders.stream().filter(d -> d.getId().toLowerCase().contains(hint.toLowerCase())|| d.getProductName().toLowerCase().contains(hint.toLowerCase())).collect(Collectors.toList());
 	}
 
 	public OrderModel getById(String id) throws MetafourStarterException {
-		List<OrderModel> rsts = products.stream().filter(r -> r.getId().equals(id)).collect(Collectors.toList());
+		List<OrderModel> rsts = orders.stream().filter(r -> r.getId().equals(id)).collect(Collectors.toList());
 		if (rsts.size() != 1)
 			return null;
 		return rsts.get(0);
 	}
-	
-	public List<OrderModel> listAllProducts() 
-	{
-	    return new ArrayList<>(products);
+
+	public List<OrderModel> listAllOrders() {
+		return new ArrayList<>(orders);
 	}
 
 }

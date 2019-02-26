@@ -1,0 +1,108 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title th:text="#{person.title}">Person</title>
+		<span th:substituteby="commons :: common-css"></span>
+	</head>
+	
+	<body>	
+		<div id="headerbar" class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+
+					<span class="brand">IMS</span>
+
+					<div class="nav-collapse collapse">
+						<ul class="nav pull-right">
+							<li><a th:href="@{/product}">Product</a></li>
+							<li><a th:href="@{/order}">Order</a></li>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+		</div>
+              
+                
+
+
+		<div id="container" class="container">		
+		
+		<header id="overview" class="subhead">
+			<div class="subnav-fixed subnav" id="subnavscroll" style="top: 66px;">
+				<ul class="nav nav-pills">
+					<li class=""><a href="#checkout-table">Checkout table</a></li>
+				</ul>
+			</div>
+		</header>
+		
+		
+			<section id="checkout-table">
+					<div class="page-header sectionbartoggle" tabindex="0">
+						<h1>
+							<small><i class="icon-chevron-down"></i>Product table</small>
+						</h1>
+					</div>
+					<a href="#" class="btn btn-warning" id="print" onclick="printContent('examples')">Print PDF</a>
+					<div id="examples" class="row anything noheader" >
+						<div class="span12">
+						  		<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
+								    <thead>
+								        <tr>
+								            <th>Order type</th>
+								            <th>Product name</th>
+								            <th>Product quantity</th>
+								            <th>Product price</th>
+								            <th>Total price</th>
+								        </tr>
+								    </thead>
+								    <tbody>
+								        <tr  th:each="product: ${order_details}" >
+								            <td th:text="${product.orderType}"></td>
+								            <td th:text="${product.productName}"></td>
+								            <td th:text="${product.productQuantity}"></td>
+								            <td th:text="${product.productPrice}" ></td>
+								            <td th:text="${product.totalPrice}" ></td>
+								        </tr>
+								    </tbody>
+								    <tfoot>
+								        <tr>
+								            <td></td>
+								            <td></td>
+								            <td></td>
+								            <td></td>
+								            <td style="font-weight:bold;"class="total-price-class">Total:</td>
+								        </tr>
+								    </tfoot>
+								</table >
+								<a th:href="@{/checkout}" class="btn btn-primary pull-right" id="checkout-button">Buy this list</a>
+						</div>
+					</div>
+			</section>
+		</div>
+
+		<span th:substituteby="commons :: common-html"></span>
+		<span th:substituteby="commons :: common-js"></span>
+		
+		<script type="text/javascript">
+		$(document).ready(function(){
+				    var theTotal = 0;
+				    $("table tbody td:nth-child(5)").each(function () {
+				        var val = $(this).text().replace(" ", "").replace(",-", "");
+				        theTotal += parseInt(val);
+				    });
+				    $(".total-price-class").text("Total is : "+theTotal);
+				    
+			}); 
+		
+		function printContent(el) {
+	        var restorepage = document.body.innerHTML;
+	        var printcontent = document.getElementById(el).innerHTML;
+	        document.body.innerHTML = printcontent;
+	        window.print();
+	        document.body.innerHTML = restorepage;
+	    }
+		</script>
+	</body>
+</html>

@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.metafour.validation.validPrice;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,12 +25,12 @@ public class ProductModel {
 
 	private String id;
 	@NotEmpty
-	private String name;
-	@Min(value = 1, message = "The value must be greater than 0")
-	private int product_price;
-	@Min(value = 1, message = "The value must be greater than 0")
-	private int qty;
+	private String productName;
+	@validPrice
+	private int productPrice;
+	@Min(value = 1, message = "Quantity must be equal or more than 1")
+	private int productQuantity;
 	@NotNull
-	private String date = dateFormat.format(new Date());
+	private String productDate = dateFormat.format(new Date());
 
 }

@@ -48,7 +48,7 @@ public class SearchSuggestController {
 		return productService.find(hint).stream().map(it -> {
 			Map<String, String> item = new HashMap<>();
 			item.put("key", it.getId());
-			item.put("value", it.getName());
+			item.put("value", it.getProductName());
 			return item;
 		}).collect(Collectors.toList());
 	}

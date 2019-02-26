@@ -22,7 +22,6 @@ import com.metafour.service.ProductService;
 @RequestMapping("/order")
 public class OrderController {
 
-
 	@Autowired
 	OrderService orderService;
 	@Autowired
@@ -35,41 +34,28 @@ public class OrderController {
 
 	@RequestMapping("/{id}")
 	public String updateScreen(@PathVariable String id, final ModelMap model) throws MetafourStarterException {
-		model.addAttribute("order",new OrderModel());
-//		model.addAttribute("productNames",productService.ret());
-		model.addAttribute("productNames",productService.listAllProducts());
+		model.addAttribute("order", new OrderModel());
+		model.addAttribute("order_details", orderService.listAllOrders());
+		model.addAttribute("productNames", productService.listAllProducts());
 		return "order";
 	}
-//	it is very important
-//	@RequestMapping("/{id}")
-//	public String updateScreen(@PathVariable String id, final ModelMap model) throws MetafourStarterException {
-//		model.addAttribute("product", id == null ? new ProductModel() : personService.getById(id));
-//		model.addAttribute("product_details",personService.listAllProducts());
-//		return "product";
-//	}
 
-//	@InitBinder
-//    public void initBinder(WebDataBinder webDataBinder) {
-//             SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
-//             dateFormat.setLenient(false);
-//             webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-//         }
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> addNewProduct(@Valid OrderModel person, BindingResult binding, final ModelMap model)
+	public Map<String, String> addNewProduct(@Valid OrderModel order, BindingResult binding, final ModelMap model)
 			throws MetafourStarterException, BindException {
-		
+
 		Map<String, String> result = new HashMap<>();
 		if (binding.hasErrors())
 			throw new BindException(binding);
 
-		if (person.getId() == null || orderService.getById(person.getId()) == null)
-			orderService.addProduct(person);
+		if (order.getId() == null || orderService.getById(order.getId()) == null)
+			orderService.addOrder(order);
 		else
-			orderService.updatePerson(person);
+			orderService.updateOrder(order);
 
 		result.put("status", "success");
-		result.put("redirect", "/" + person.getId());
+		result.put("redirect", "/" + order.getId());
 		return result;
 	}
 }

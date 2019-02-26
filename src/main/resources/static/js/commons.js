@@ -142,7 +142,7 @@ m4.mainpagesubmitsuccess = function(data, textStatus, jqXHR) {
  * @param errorThrown
  */
 m4.mainpagesubmiterror = function(jqXHR, textStatus, errorThrown) {
-	console.log("hello buddy");
+	console.log("hello Sahid error");
 	try {
 		var jsonObject = $.parseJSON(jqXHR.responseText);
 		var errMsg = jsonObject.message + ".";
@@ -154,7 +154,9 @@ m4.mainpagesubmiterror = function(jqXHR, textStatus, errorThrown) {
 				var field = $("[name='" + item.field + "']");
 				if (field && field.is(".typeahead-val")) field = field.siblings(".typeahead");
 				if (field) field.addClass("error");
-				errMsg += item.field + " = " + item.defaultMessege + ", ";
+//				errMsg += item.field + " = " + item.defaultMessage + ", ";
+				errMsg=(item.defaultMessage);
+				console.log(item);
 			});
 			showError(errMsg);
 		}

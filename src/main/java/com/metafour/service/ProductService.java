@@ -14,7 +14,7 @@ import com.metafour.model.ProductModel;
 
 @Service
 public class ProductService {
-	
+
 	List<ProductModel> products = new ArrayList<>();
 //	public void manualAdd() {
 //		ProductModel pm=new ProductModel();
@@ -25,31 +25,35 @@ public class ProductService {
 //		pm.setQty(4);
 //		products.add(pm);
 //	}
-	
-	
+
 	public void addProduct(ProductModel product) throws MetafourStarterException {
 		product.setId(String.valueOf(new Random().nextLong()));
 		products.add(product);
 	}
 
-	public void updatePerson(ProductModel person) throws MetafourStarterException {
-		List<ProductModel> rsts = products.stream().filter(r -> r.getId().equals(person.getId())).collect(Collectors.toList());
+	public void updateProduct(ProductModel product) throws MetafourStarterException {
+		List<ProductModel> rsts = products.stream().filter(r -> r.getId().equals(product.getId()))
+				.collect(Collectors.toList());
 		if (rsts.isEmpty())
-			throw new MetafourStarterException("No Person found with ID '" + person.getId() + "' for update!");
+			throw new MetafourStarterException("No Person found with ID '" + product.getId() + "' for update!");
 		products.remove(rsts.get(0));
-		products.add(person);
+		products.add(product);
 	}
 
-	public void deletePerson(ProductModel person) throws MetafourStarterException {
-		List<ProductModel> rsts = products.stream().filter(r -> r.getId().equals(person.getId())).collect(Collectors.toList());
+	public void deletePerson(ProductModel product) throws MetafourStarterException {
+		List<ProductModel> rsts = products.stream().filter(r -> r.getId().equals(product.getId()))
+				.collect(Collectors.toList());
 		if (rsts.isEmpty())
-			throw new MetafourStarterException("No Person found with ID '" + person.getId() + "' for delete!");
+			throw new MetafourStarterException("No Person found with ID '" + product.getId() + "' for delete!");
 		products.remove(rsts.get(0));
 	}
 
 	public List<ProductModel> find(String hint) {
-		return hint.equals("?")	? products: products.stream().filter(d -> d.getId().toLowerCase().contains(hint.toLowerCase())|| d.getName().toLowerCase().contains(hint.toLowerCase()))
-								.collect(Collectors.toList());
+		return hint.equals("?") ? products
+				: products.stream()
+						.filter(d -> d.getId().toLowerCase().contains(hint.toLowerCase())
+								|| d.getProductName().toLowerCase().contains(hint.toLowerCase()))
+						.collect(Collectors.toList());
 	}
 
 	public ProductModel getById(String id) throws MetafourStarterException {
@@ -58,26 +62,24 @@ public class ProductService {
 			return null;
 		return rsts.get(0);
 	}
-	
-	public List<ProductModel> listAllProducts() 
-	{
-	    return new ArrayList<>(products);
+
+	public List<ProductModel> listAllProducts() {
+		return new ArrayList<>(products);
 	}
 
-	public ProductModel listProductsName() 
-	{
-	    return products.get(1);
+	public ProductModel listProductsName() {
+		return products.get(1);
 	}
-	
-	public String ret() {
-		 ProductModel retrievedThing = null;
-		 Iterator<ProductModel> i = products.iterator();
-		 if(i.hasNext()){
-		      retrievedThing = i.next();
-		 }
-		 if(retrievedThing==null) return null;
-		 else
-		 return retrievedThing.getName();
-	}
+
+//	public String ret() {
+//		 ProductModel retrievedThing = null;
+//		 Iterator<ProductModel> i = products.iterator();
+//		 if(i.hasNext()){
+//		      retrievedThing = i.next();
+//		 }
+//		 if(retrievedThing==null) return null;
+//		 else
+//		 return retrievedThing.getName();
+//	}
 
 }
