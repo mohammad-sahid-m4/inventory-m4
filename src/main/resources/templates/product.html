@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
-		<title th:text="#{person.title}">Person</title>
+		<title>IMS</title>
 		<span th:substituteby="commons :: common-css"></span>
 	</head>
 	<body th:with="isNew=${#strings.isEmpty(product.id)}">	
@@ -54,14 +54,14 @@
 								<div class="control-group">
 									<label for="name" class="control-label">Product name</label>
 									<div class="controls">
-										<input id="name"  th:field="*{productName}" type="text" data-maxlength="50"
+										<input id="name" data-required="required" th:field="*{productName}" type="text" data-maxlength="50"
 											class="include" placeholder="Product name"/> 
 									</div>
 								</div>
 								<div class="control-group">
 									<label for="price" class="control-label">Product price</label>
 									<div class="controls">
-										<input id="price"  th:field="*{productPrice}"  type="number" data-maxlength="50"
+										<input id="price" data-required="required" th:field="*{productPrice}"  type="number" data-maxlength="50"
 											class="include" placeholder="Product price" /> 
 									</div>
 								</div>
@@ -73,7 +73,7 @@
 						  		<div class="control-group">
 									<label for="quantity" class="control-label" >Product quantity</label>
 									<div class="controls">
-										<input id="quantity"  th:field="*{productQuantity}" type="number" data-maxlength="50"
+										<input id="quantity"  data-required="required" th:field="*{productQuantity}" type="number" data-maxlength="50"
 											class="include" placeholder="Product quantity" /> 
 									</div>
 								</div>
@@ -82,7 +82,7 @@
 									<label for="datepicker" class="control-label">Purchase date</label>
 									<div class="controls">
 										<div class="input-append">
-											<input id="datepicker"	data-required="required" th:field="*{productDate}" class="input-datesize include con-datepicker con-futuredate" type="text"
+											<input id="datepicker"	data-required="required" th:field="*{productDate}" class="input-datesize include con-datepicker con-presentdate" type="text"
 												name="datepicker"/>
 												<span class="add-on"><i
 												class="icon-calendar"></i></span>
@@ -109,14 +109,16 @@
 						  		<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
 								    <thead>
 								        <tr>
+								           
 								            <th>Product Name</th>
 								            <th>Product Price</th>
 								            <th>Product Quantity</th>
-								            <th>Date</th>
+								            <th data-defaultsort="desc">Date</th>
 								        </tr>
 								    </thead>
 								    <tbody>
-								        <tr  th:each="product: ${product_details}" >
+								        <tr  th:each="product,num: ${product_details}" >
+								        	
 								            <td th:text="${product.productName}"></td>
 								            <td th:text="${product.productPrice}"></td>
 								            <td th:text="${product.productQuantity}"></td>

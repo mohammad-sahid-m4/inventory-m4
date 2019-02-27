@@ -1,21 +1,25 @@
 package com.metafour.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.metafour.exception.MetafourStarterException;
+import com.metafour.model.OrderModel;
 import com.metafour.model.ProductModel;
 
 @Service
 public class ProductService {
-
+	@Autowired
+	OrderService orderService;
 	List<ProductModel> products = new ArrayList<>();
+	
+
+//	orders=orderService.listAllOrders();
 //	public void manualAdd() {
 //		ProductModel pm=new ProductModel();
 //		pm.setId("3");
@@ -35,9 +39,22 @@ public class ProductService {
 		List<ProductModel> rsts = products.stream().filter(r -> r.getId().equals(product.getId()))
 				.collect(Collectors.toList());
 		if (rsts.isEmpty())
-			throw new MetafourStarterException("No Person found with ID '" + product.getId() + "' for update!");
+			throw new MetafourStarterException("No product found with ID '" + product.getId() + "' for update!");
 		products.remove(rsts.get(0));
 		products.add(product);
+	}
+	
+	public void updateQuantity(String type,String name,int quantity) {
+		products.forEach(product->{
+			if(product.getProductName().equalsIgnoreCase(name)) {
+				if(type.equalsIgnoreCase("sale")){
+					product.setProductQuantity(product.getProductQuantity()-quantity);
+				}
+				else {
+					product.setProductQuantity(product.getProductQuantity()+quantity);
+				}
+			}
+		});
 	}
 
 	public void deletePerson(ProductModel product) throws MetafourStarterException {
@@ -70,7 +87,7 @@ public class ProductService {
 	public ProductModel listProductsName() {
 		return products.get(1);
 	}
-
+}
 //	public String ret() {
 //		 ProductModel retrievedThing = null;
 //		 Iterator<ProductModel> i = products.iterator();
@@ -82,4 +99,4 @@ public class ProductService {
 //		 return retrievedThing.getName();
 //	}
 
-}
+

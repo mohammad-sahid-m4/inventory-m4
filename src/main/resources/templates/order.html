@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
-		<title th:text="#{person.title}">Person</title>
+		<title>IMS</title>
 		<span th:substituteby="commons :: common-css"></span>
 	</head>
 	
@@ -15,7 +15,7 @@
 
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right" th:if="${isNew}">
-							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.create}">Create</a></li>
+							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" >Add to cart</a></li>
 							<li><a th:href="@{/}">Home</a></li>
 							<li><a th:href="@{/product}">Product</a></li>
 							<li><a th:href="@{/order}">Order</a></li>
@@ -35,12 +35,7 @@
 				</div>
 			</div>
 		</div>
-              
-                
-
-
 		<div id="container" class="container">		
-		
 		<header id="overview" class="subhead">
 			<div class="subnav-fixed subnav" id="subnavscroll" style="top: 66px;">
 				<ul class="nav nav-pills">
@@ -54,7 +49,7 @@
 				<section id="add-order">
 				<div class="page-header sectionbartoggle" tabindex="0">
 					<h1>
-						<small><i class="icon-chevron-down"></i><span>Add product</span></small>
+						<small><i class="icon-chevron-down"></i><span>Add order</span></small>
 					</h1>
 				</div>
 					<div class="row anything noheader">
@@ -65,11 +60,11 @@
 									<label for="groupofradios" class="control-label">Order type</label>
 									<div class="controls">
 										<label class="radio">
-								            <input type="radio" id="groupofradios2radio1" value="sale" th:field="*{orderType}" name="radio-order-type" class="include" checked/>
+								            <input type="radio" data-required="required" id="groupofradios2radio1" value="sale" th:field="*{orderType}" name="radio-order-type" class="include" checked/>
 								            Sale
 								        </label>
 								        <label class="radio">
-								            <input type="radio" id="groupofradios2radio2" value="purchase" th:field="*{orderType}" name="radio-order-type" class="include"/>
+								            <input type="radio" data-required="required" id="groupofradios2radio2" value="purchase" th:field="*{orderType}" name="radio-order-type" class="include"/>
 								            Purchase
 								        </label>
 									</div>
@@ -90,23 +85,23 @@
 						<div class="span6">
 						 <fieldset>
 							<div class="control-group">
-								<label for="name" class="control-label">Product quantity</label>
+								<label for="product-quantity" class="control-label">Product quantity</label>
 								<div class="controls">
-									<input id="name"  th:field="*{productQuantity}" data-required="required" type="text" data-maxlength="50"
+									<input id="product-quantity"  th:field="*{productQuantity}" data-required="required" type="text" data-maxlength="50"
 										class="include qty-input" placeholder="Product qantity" /> 
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="name" class="control-label">Product price</label>
+								<label for="product-price" class="control-label">Product price</label>
 								<div class="controls">
-									<input id="name"  th:field="*{productPrice}" data-required="required" type="text" data-maxlength="50"
+									<input id="product-price"  th:field="*{productPrice}" data-required="required" type="text" data-maxlength="50"
 										class="include price-input" placeholder="Product price" readonly/> 
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="name" class="control-label">Total price</label>
+								<label for="total-price" class="control-label">Total price</label>
 								<div class="controls">
-									<input id="name"  th:field="*{totalPrice}" data-required="required" type="text" data-maxlength="50"
+									<input id="total-price"  th:field="*{totalPrice}" data-required="required" type="text" data-maxlength="50"
 										class="include total-price-input" placeholder="Product price" readonly/> 
 								</div>
 							</div>
@@ -122,7 +117,7 @@
 			<section id="order-table">
 					<div class="page-header sectionbartoggle" tabindex="0">
 						<h1>
-							<small><i class="icon-chevron-down"></i>Product table</small>
+							<small><i class="icon-chevron-down"></i>Order table</small>
 						</h1>
 					</div>
 					<a href="#" class="btn btn-warning" id="print" onclick="printContent('examples')">Print PDF</a>
@@ -131,6 +126,7 @@
 						  		<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
 								    <thead>
 								        <tr>
+								            <th>Serial no</th>
 								            <th>Order type</th>
 								            <th>Product name</th>
 								            <th>Product quantity</th>
@@ -139,7 +135,8 @@
 								        </tr>
 								    </thead>
 								    <tbody>
-								        <tr  th:each="product: ${order_details}" >
+								        <tr  th:each="product,num: ${order_details}" >
+								            <td th:text="${num.count}"></td>
 								            <td th:text="${product.orderType}"></td>
 								            <td th:text="${product.productName}"></td>
 								            <td th:text="${product.productQuantity}"></td>
@@ -149,6 +146,7 @@
 								    </tbody>
 								    <tfoot>
 								        <tr>
+								            <td></td>
 								            <td></td>
 								            <td></td>
 								            <td></td>
@@ -175,7 +173,8 @@
 			 $(".qty-input").val(1);
 			});
 		$(document).ready(function(){
-			
+			$("#price").val("");
+			$("#quantity").val("");
 			  $(".qty-input").keyup(function(){
 				  if($(".qty-input").val()>0)
 					   $(".total-price-input").val($(".qty-input").val()*price);
@@ -190,14 +189,13 @@
 				  }
 			  });
 				    var theTotal = 0;
-				    $("table tbody td:nth-child(5)").each(function () {
+				    $("table tbody td:nth-child(6)").each(function () {
 				        var val = $(this).text().replace(" ", "").replace(",-", "");
 				        theTotal += parseInt(val);
 				    });
 				    $(".total-price-class").text("Total is : "+theTotal);
 				    
 			}); 
-		$('input:radio[name=radio-order-type][value=sale]').click();
 
 		function printContent(el) {
 	        var restorepage = document.body.innerHTML;

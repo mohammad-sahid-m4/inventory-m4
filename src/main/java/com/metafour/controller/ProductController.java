@@ -36,17 +36,17 @@ public class ProductController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> addNewProduct(@Valid ProductModel person, BindingResult binding, final ModelMap model)
+	public Map<String, String> addNewProduct(@Valid ProductModel product, BindingResult binding, final ModelMap model)
 			throws MetafourStarterException, BindException {
 		Map<String, String> result = new HashMap<>();
 		if (binding.hasErrors())
 			throw new BindException(binding);
-		if (person.getId() == null || productService.getById(person.getId()) == null)
-			productService.addProduct(person);
+		if (product.getId() == null || productService.getById(product.getId()) == null)
+			productService.addProduct(product);
 		else
-			productService.updateProduct(person);
+			productService.updateProduct(product);
 		result.put("status", "success");
-		result.put("redirect", "/" + person.getId());
+		result.put("redirect", "/" + product.getId());
 		return result;
 	}
 }

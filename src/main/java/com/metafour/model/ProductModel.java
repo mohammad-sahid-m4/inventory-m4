@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.metafour.validation.uniqueName;
 import com.metafour.validation.validPrice;
 
 import lombok.Data;
@@ -21,10 +22,11 @@ import lombok.ToString;
 
 @Data
 public class ProductModel {
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd-MMM-yyyy");
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 
 	private String id;
-	@NotEmpty
+	@NotEmpty(message="Product name is required")
+	@uniqueName
 	private String productName;
 	@validPrice
 	private int productPrice;

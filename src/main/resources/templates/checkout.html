@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
-		<title th:text="#{person.title}">Person</title>
+			<title>IMS</title>
 		<span th:substituteby="commons :: common-css"></span>
 	</head>
 	
@@ -11,10 +11,11 @@
 			<div class="navbar-inner">
 				<div class="container">
 
-					<span class="brand">IMS</span>
+					<span class="brand">Checkout</span>
 
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
+							<li><a th:href="@{/}">Home</a></li>
 							<li><a th:href="@{/product}">Product</a></li>
 							<li><a th:href="@{/order}">Order</a></li>
 						</ul>
@@ -41,7 +42,7 @@
 			<section id="checkout-table">
 					<div class="page-header sectionbartoggle" tabindex="0">
 						<h1>
-							<small><i class="icon-chevron-down"></i>Product table</small>
+							<small><i class="icon-chevron-down"></i>Checkout table</small>
 						</h1>
 					</div>
 					<a href="#" class="btn btn-warning" id="print" onclick="printContent('examples')">Print PDF</a>
@@ -49,7 +50,7 @@
 						<div class="span12">
 						  		<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
 								    <thead>
-								        <tr>
+								        <tr><th>Serial no</th>
 								            <th>Order type</th>
 								            <th>Product name</th>
 								            <th>Product quantity</th>
@@ -58,7 +59,8 @@
 								        </tr>
 								    </thead>
 								    <tbody>
-								        <tr  th:each="product: ${order_details}" >
+								        <tr  th:each="product,num: ${order_details}" >
+								        	<td th:text="${num.count}"></td>
 								            <td th:text="${product.orderType}"></td>
 								            <td th:text="${product.productName}"></td>
 								            <td th:text="${product.productQuantity}"></td>
@@ -72,11 +74,12 @@
 								            <td></td>
 								            <td></td>
 								            <td></td>
+								            <td></td>
 								            <td style="font-weight:bold;"class="total-price-class">Total:</td>
 								        </tr>
 								    </tfoot>
 								</table >
-								<a th:href="@{/checkout}" class="btn btn-primary pull-right" id="checkout-button">Buy this list</a>
+								<a th:href="@{/checkout/home}" class="btn btn-primary pull-right" id="checkout-button">Submit</a>
 						</div>
 					</div>
 			</section>
@@ -88,7 +91,7 @@
 		<script type="text/javascript">
 		$(document).ready(function(){
 				    var theTotal = 0;
-				    $("table tbody td:nth-child(5)").each(function () {
+				    $("table tbody td:nth-child(6)").each(function () {
 				        var val = $(this).text().replace(" ", "").replace(",-", "");
 				        theTotal += parseInt(val);
 				    });

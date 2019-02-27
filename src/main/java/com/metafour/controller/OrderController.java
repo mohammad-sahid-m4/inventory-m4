@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.metafour.exception.MetafourStarterException;
 import com.metafour.model.OrderModel;
-import com.metafour.model.ProductModel;
 import com.metafour.service.OrderService;
 import com.metafour.service.ProductService;
 

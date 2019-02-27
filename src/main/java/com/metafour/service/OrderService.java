@@ -12,39 +12,34 @@ import com.metafour.model.OrderModel;
 public class OrderService {
 
 	List<OrderModel> orders = new ArrayList<>();
-//	public void manualAdd() {
-//		ProductModel pm=new ProductModel();
-//		pm.setId("3");
-//		pm.setName("glass");
-//		pm.setProduct_price(40);
-////		pm.setDate(new Date(2002,3,1));
-//		pm.setQty(4);
-//		orders.add(pm);
-//	}
 
 	public void addOrder(OrderModel order) throws MetafourStarterException {
 		order.setId(String.valueOf(new Random().nextLong()));
 		orders.add(order);
 	}
 
-	public void updateOrder(OrderModel person) throws MetafourStarterException {
-		List<OrderModel> rsts = orders.stream().filter(r -> r.getId().equals(person.getId()))
+	public void updateOrder(OrderModel order) throws MetafourStarterException {
+		List<OrderModel> rsts = orders.stream().filter(r -> r.getId().equals(order.getId()))
 				.collect(Collectors.toList());
 		if (rsts.isEmpty())
-			throw new MetafourStarterException("No Person found with ID '" + person.getId() + "' for update!");
+			throw new MetafourStarterException("No order found with ID '" + order.getId() + "' for update!");
 		orders.remove(rsts.get(0));
-		orders.add(person);
+		orders.add(order);
 	}
 
-	public void deletePerson(OrderModel person) throws MetafourStarterException {
-		List<OrderModel> rsts = orders.stream().filter(r -> r.getId().equals(person.getId())).collect(Collectors.toList());
-		if (rsts.isEmpty())
-			throw new MetafourStarterException("No Person found with ID '" + person.getId() + "' for delete!");
-		orders.remove(rsts.get(0));
-	}
+//	public void deletePerson(OrderModel person) throws MetafourStarterException {
+//		List<OrderModel> rsts = orders.stream().filter(r -> r.getId().equals(person.getId())).collect(Collectors.toList());
+//		if (rsts.isEmpty())
+//			throw new MetafourStarterException("No Person found with ID '" + person.getId() + "' for delete!");
+//		orders.remove(rsts.get(0));
+//	}
 
 	public List<OrderModel> find(String hint) {
-		return hint.equals("?") ? orders: orders.stream().filter(d -> d.getId().toLowerCase().contains(hint.toLowerCase())|| d.getProductName().toLowerCase().contains(hint.toLowerCase())).collect(Collectors.toList());
+		return hint.equals("?") ? orders
+				: orders.stream()
+						.filter(d -> d.getId().toLowerCase().contains(hint.toLowerCase())
+								|| d.getProductName().toLowerCase().contains(hint.toLowerCase()))
+						.collect(Collectors.toList());
 	}
 
 	public OrderModel getById(String id) throws MetafourStarterException {
@@ -56,6 +51,10 @@ public class OrderService {
 
 	public List<OrderModel> listAllOrders() {
 		return new ArrayList<>(orders);
+	}
+	
+	public void orderClear() {
+		orders.clear();
 	}
 
 }
