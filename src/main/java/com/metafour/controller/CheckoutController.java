@@ -27,6 +27,9 @@ public class CheckoutController {
 	public String home(Model model) {
 		model.addAttribute("success", "Buying/selling completed successfully");
 		buyList();
+		if(orderService.listAllOrders().isEmpty()) {
+			model.addAttribute("success", "You do not buy or sell anything");
+		}
 		orderService.orderClear();
 		return "index";
 	}

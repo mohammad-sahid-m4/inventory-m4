@@ -9,22 +9,25 @@ import com.metafour.service.ProductService;
 
 public class uniqueNameImpl implements ConstraintValidator<uniqueName, String> {
 
-	boolean flag = true;
+	boolean flag = false;
 	@Autowired
 	ProductService productService;
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		if (!nameUnique(value))
-			return false;
-		else
 			return true;
+		else
+			return false;
 	}
 
 	public boolean nameUnique(String name) {
 		productService.listAllProducts().forEach(product -> {
 			if (product.getProductName().equalsIgnoreCase(name)) {
-				flag = false;
+				flag = true;
+			}
+			else {
+				flag=false;
 			}
 		});
 		return flag;

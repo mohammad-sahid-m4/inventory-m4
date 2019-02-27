@@ -39,19 +39,36 @@ public class OrderController {
 		return "order";
 	}
 
+	boolean flag=true;
+	public boolean availabe(String name) {
+		orderService.listAllOrders().forEach(order -> {
+			if (order.getProductName().equalsIgnoreCase(name)) {
+				flag=false;
+			}
+		});
+		return flag;
+	}
+	
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> addNewProduct(@Valid OrderModel order, BindingResult binding, final ModelMap model)
 			throws MetafourStarterException, BindException {
 
 		Map<String, String> result = new HashMap<>();
+		if(availabe(order.getProductName())) {
+			orderService.addOrder(order);
+		}
+		else {
+			orderService.updateOrder(order);
+			flag=true;
+		}
 		if (binding.hasErrors())
 			throw new BindException(binding);
 
-		if (order.getId() == null || orderService.getById(order.getId()) == null)
-			orderService.addOrder(order);
-		else
-			orderService.updateOrder(order);
+//		if (order.getId() == null || orderService.getById(order.getId()) == null)
+//			orderService.addOrder(order);
+//		else
+//			orderService.updateOrder(order);
 
 		result.put("status", "success");
 		result.put("redirect", "/" + order.getId());
