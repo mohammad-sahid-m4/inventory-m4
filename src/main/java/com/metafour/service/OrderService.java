@@ -20,14 +20,19 @@ public class OrderService {
 		orders.add(order);
 	}
 	public void updateOrder(OrderModel order) throws MetafourStarterException {
-		List<OrderModel> rsts; 
 		orders.forEach(ord ->{
 			if(ord.getProductName().equalsIgnoreCase(order.getProductName())) {
-				order.setProductQuantity(ord.getProductQuantity()+order.getProductQuantity());
+				if(ord.getOrderType().equalsIgnoreCase("sale")) {
+				ord.setProductQuantity(ord.getProductQuantity()+order.getProductQuantity());
+				ord.setTotalPrice(ord.getTotalPrice()+order.getTotalPrice());
+				}
+				if(ord.getOrderType().equalsIgnoreCase("purchase")) {
+				ord.setProductQuantity(ord.getProductQuantity()+order.getProductQuantity());
+				}
 			}
 		});
-		orders.remove(id);
-		orders.add(order);
+////		orders.remove(id);
+//		orders.add(order);
 	}
 
 	public List<OrderModel> find(String hint) {
