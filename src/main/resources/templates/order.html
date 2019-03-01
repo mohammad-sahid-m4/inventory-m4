@@ -10,9 +10,7 @@
 		<div id="headerbar" class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-
 					<span class="brand">Order</span>
-
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right" th:if="${isNew}">
 							<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" >Add to cart</a></li>
@@ -80,7 +78,6 @@
 							    </div>
 							</div>
 							</fieldset>
-						
 						</div>
 						<div class="span6">
 						 <fieldset>
@@ -110,11 +107,11 @@
 					</div>
 				</section>
 			</form>
-
-     <br>
-     <br>
-     <br>
+		     <br>
+		     <br>
+		     <br>
 			<section id="order-table">
+				<div id="full-table-section" hidden>
 					<div class="page-header sectionbartoggle" tabindex="0">
 						<h1>
 							<small><i class="icon-chevron-down"></i>Order table</small>
@@ -123,7 +120,7 @@
 					<a href="#" class="btn btn-warning" id="print" onclick="printContent('examples')">Print PDF</a>
 					<div id="examples" class="row anything noheader" >
 						<div class="span12">
-						  		<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"    >
+						  		<table class="table-condensed table table-striped datatabled" id="testdisabledtable"  data-perpageprompt="Amount of data" data-filterprompt="Search data"   >
 								    <thead>
 								        <tr>
 								            <th>Serial no</th>
@@ -158,6 +155,7 @@
 								<a th:href="@{/checkout}" class="btn btn-primary pull-right" id="checkout-button">Checkout</a>
 						</div>
 					</div>
+				</div>
 			</section>
 		</div>
 
@@ -173,6 +171,11 @@
 			 $(".qty-input").val(1);
 			});
 		$(document).ready(function(){
+			var tbody = $('tbody tr td[data-headerdetails="Serial no"]').text();
+			if (tbody> 0) {
+			    $("#full-table-section").show();
+			}
+			
 			$("#price").val("");
 			$("#quantity").val("");
 			  $(".qty-input").keyup(function(){

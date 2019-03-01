@@ -15,26 +15,28 @@ public class OrderService {
 
 	List<OrderModel> orders = new ArrayList<>();
 
+	// add order in list
 	public void addOrder(OrderModel order) throws MetafourStarterException {
 		order.setId(String.valueOf(new Random().nextLong()));
 		orders.add(order);
 	}
+
+	// update the existing order
 	public void updateOrder(OrderModel order) throws MetafourStarterException {
-		orders.forEach(ord ->{
-			if(ord.getProductName().equalsIgnoreCase(order.getProductName())) {
-				if(ord.getOrderType().equalsIgnoreCase("sale")) {
-				ord.setProductQuantity(ord.getProductQuantity()+order.getProductQuantity());
-				ord.setTotalPrice(ord.getTotalPrice()+order.getTotalPrice());
+		orders.forEach(ord -> {
+			if (ord.getProductName().equalsIgnoreCase(order.getProductName())) {
+				if (ord.getOrderType().equalsIgnoreCase("sale")) {
+					ord.setProductQuantity(ord.getProductQuantity() + order.getProductQuantity());
+					ord.setTotalPrice(ord.getTotalPrice() + order.getTotalPrice());
 				}
-				if(ord.getOrderType().equalsIgnoreCase("purchase")) {
-				ord.setProductQuantity(ord.getProductQuantity()+order.getProductQuantity());
+				if (ord.getOrderType().equalsIgnoreCase("purchase")) {
+					ord.setProductQuantity(ord.getProductQuantity() + order.getProductQuantity());
 				}
 			}
 		});
-////		orders.remove(id);
-//		orders.add(order);
 	}
 
+	// find the order form search bar from menu
 	public List<OrderModel> find(String hint) {
 		return hint.equals("?") ? orders
 				: orders.stream()
@@ -43,6 +45,7 @@ public class OrderService {
 						.collect(Collectors.toList());
 	}
 
+	// find the id of order
 	public OrderModel getById(String id) throws MetafourStarterException {
 		List<OrderModel> rsts = orders.stream().filter(r -> r.getId().equals(id)).collect(Collectors.toList());
 		if (rsts.size() != 1)
@@ -50,10 +53,12 @@ public class OrderService {
 		return rsts.get(0);
 	}
 
+	// send all the order
 	public List<OrderModel> listAllOrders() {
 		return new ArrayList<>(orders);
 	}
-	
+
+	// clear the list of the order
 	public void orderClear() {
 		orders.clear();
 	}

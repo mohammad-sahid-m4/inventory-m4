@@ -23,7 +23,7 @@ import javax.validation.constraints.NotEmpty.List;
 @Retention(RUNTIME)
 public @interface uniqueType {
 
-	String message() default "Sorry! you can't sale as well as buy in a single time";
+	String message() default "Sorry! you cannot buy and sell at one time";
 
 	Class<?>[] groups() default { };
 

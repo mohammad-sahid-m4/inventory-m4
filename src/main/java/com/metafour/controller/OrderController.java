@@ -25,7 +25,7 @@ public class OrderController {
 	OrderService orderService;
 	@Autowired
 	ProductService productService;
-
+	
 	@RequestMapping
 	public String newScreen(final ModelMap model) throws MetafourStarterException {
 		return updateScreen(null, model);
@@ -39,9 +39,9 @@ public class OrderController {
 		return "order";
 	}
 
+	//	check if order is already available in order list
 	boolean flag = true;
-
-	public boolean availabe(String name) {
+	public boolean available(String name) {
 		orderService.listAllOrders().forEach(order -> {
 			if (order.getProductName().equalsIgnoreCase(name)) {
 				flag = false;
@@ -56,23 +56,15 @@ public class OrderController {
 	@ResponseBody
 	public Map<String, String> addNewProduct(@Valid OrderModel order, BindingResult binding, final ModelMap model)
 			throws MetafourStarterException, BindException {
-
 		Map<String, String> result = new HashMap<>();
-
 		if (binding.hasErrors())
 			throw new BindException(binding);
-		if (availabe(order.getProductName())) {
+		if (available(order.getProductName())) {
 			orderService.addOrder(order);
 		} else {
 			orderService.updateOrder(order);
 			flag = true;
 		}
-
-//		if (order.getId() == null || orderService.getById(order.getId()) == null)
-//			orderService.addOrder(order);
-//		else
-//			orderService.updateOrder(order);
-
 		result.put("status", "success");
 		result.put("redirect", "/" + order.getId());
 		return result;

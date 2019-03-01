@@ -23,17 +23,19 @@ public class CheckoutController {
 		return "checkout";
 	}
 
+	// buy/sell complete
 	@RequestMapping("/home")
 	public String home(Model model) {
-		model.addAttribute("success", "Buying/selling completed successfully");
+		model.addAttribute("success", "Thank you for shopping");
 		buyList();
-		if(orderService.listAllOrders().isEmpty()) {
+		if (orderService.listAllOrders().isEmpty()) {
 			model.addAttribute("success", "You do not buy or sell anything");
 		}
 		orderService.orderClear();
 		return "index";
 	}
-
+	
+	//	update the product quantity after buying/selling
 	public void buyList() {
 		orderService.listAllOrders().forEach(product -> productService.updateQuantity(product.getOrderType(),
 				product.getProductName(), product.getProductQuantity()));

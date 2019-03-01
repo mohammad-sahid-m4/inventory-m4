@@ -10,9 +10,7 @@
 		<div id="headerbar" class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container">
-
 					<span class="brand">Home</span>
-
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
 							<li><a th:href="@{/}">Home</a></li>
@@ -33,14 +31,13 @@
 			</div>
 		</div>
 		<br>
-				<div class="card-body">
+		<div class="card-body">
 			<div class="container">
 				<div class="jumbotron">
 					<h3 class="text-center" th:utext="${success}"></h3>
 				</div>
 			</div>
 		</div>
-	
 
 		<span th:substituteby="commons :: common-html"></span>
 		<span th:substituteby="commons :: common-js"></span>
