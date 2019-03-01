@@ -38,18 +38,9 @@ public class OrderController {
 		model.addAttribute("productNames", productService.listAllProducts());
 		return "order";
 	}
-
-	//	check if order is already available in order list
-	boolean flag = true;
-	public boolean available(String name) {
-		orderService.listAllOrders().forEach(order -> {
-			if (order.getProductName().equalsIgnoreCase(name)) {
-				flag = false;
-			} else {
-				flag = true;
-			}
-		});
-		return flag;
+	
+	private boolean available(String name) {
+		return orderService.listAllOrders().stream().anyMatch(obj ->obj.getProductName().equalsIgnoreCase(name));
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -59,11 +50,10 @@ public class OrderController {
 		Map<String, String> result = new HashMap<>();
 		if (binding.hasErrors())
 			throw new BindException(binding);
-		if (available(order.getProductName())) {
+		if (!available(order.getProductName())) {
 			orderService.addOrder(order);
 		} else {
 			orderService.updateOrder(order);
-			flag = true;
 		}
 		result.put("status", "success");
 		result.put("redirect", "/" + order.getId());

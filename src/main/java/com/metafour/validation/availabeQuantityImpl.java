@@ -2,9 +2,7 @@ package com.metafour.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.metafour.model.OrderModel;
 import com.metafour.service.OrderService;
 import com.metafour.service.ProductService;
@@ -20,9 +18,8 @@ public class availabeQuantityImpl implements ConstraintValidator<availabeQuantit
 
 	@Override
 	public boolean isValid(OrderModel value, ConstraintValidatorContext context) {
-
 		String name = value.getProductName();
-		int quantity = value.getProductQuantity()+getPrevQuantity(name);
+		int quantity = value.getProductQuantity();
 		String type = value.getOrderType();
 		if (availableProduct(name, quantity, type)) {
 			return true;
@@ -30,6 +27,7 @@ public class availabeQuantityImpl implements ConstraintValidator<availabeQuantit
 			return false;
 	}
 
+	//check the previous quantity of specific product in order list
 	public int getPrevQuantity(String name) {
 		orderService.listAllOrders().forEach(ord -> {
 			if (ord.getProductName().equals(name)) {
@@ -39,16 +37,17 @@ public class availabeQuantityImpl implements ConstraintValidator<availabeQuantit
 		return prevQuantity;
 	}
 
+	//check if product quantity is sufficient according to user require
 	public boolean availableProduct(String name, int quantity, String type) {
 		flag = true;
 		productService.listAllProducts().forEach(product -> {
 			if (product.getProductName().equalsIgnoreCase(name)) {
 				if (type.equalsIgnoreCase("sale")) {
-					if (product.getProductQuantity() >= quantity) {
+					if (product.getProductQuantity() >= quantity+getPrevQuantity(name)) {
 						flag = true;
 					} else {
 						flag = false;
-						prevQuantity=0;
+						prevQuantity = 0;
 					}
 				}
 			}

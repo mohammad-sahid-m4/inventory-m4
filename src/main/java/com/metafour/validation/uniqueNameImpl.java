@@ -15,10 +15,10 @@ public class uniqueNameImpl implements ConstraintValidator<uniqueName, String> {
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (!nameUnique(value))
-			return true;
-		else
+		if (nameUnique(value))
 			return false;
+		else
+			return true;
 	}
 
 	public boolean nameUnique(String name) {
